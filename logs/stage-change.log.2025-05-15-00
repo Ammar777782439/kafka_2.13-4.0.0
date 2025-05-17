@@ -1,0 +1,4 @@
+[2025-05-15 00:21:47,350] INFO [Broker id=10] Transitioning 2 partition(s) to local followers. (state.change.logger)
+[2025-05-15 00:21:47,352] INFO [Broker id=10] Follower test-sasl-topic-0 starts at leader epoch 5 from offset 0 with partition epoch 5 and high watermark 0. Current leader is -1. Previous leader Some(-1) and previous leader epoch was 5. (state.change.logger)
+[2025-05-15 00:21:47,353] INFO [Broker id=10] Follower test-sasddl-topic-0 starts at leader epoch 5 from offset 0 with partition epoch 5 and high watermark 0. Current leader is -1. Previous leader Some(-1) and previous leader epoch was 5. (state.change.logger)
+[2025-05-15 00:21:47,360] INFO [Broker id=10] Stopped fetchers as part of controlled shutdown for 2 partitions (state.change.logger)

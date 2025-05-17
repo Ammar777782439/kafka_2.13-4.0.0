@@ -1,569 +1,200 @@
-[2025-05-14 23:11:12,407] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
-[2025-05-14 23:11:12,936] INFO Registered signal handlers for TERM, INT, HUP (org.apache.kafka.common.utils.LoggingSignalHandler)
-[2025-05-14 23:11:12,944] INFO [ControllerServer id=10] Starting controller (kafka.server.ControllerServer)
-[2025-05-14 23:11:12,992] INFO [StandardAuthorizer 10] set super.users=User:ANONYMOUS,User:admin, default result=DENIED (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:13,634] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
-[2025-05-14 23:11:13,736] INFO [SocketServer listenerType=CONTROLLER, nodeId=10] Created data-plane acceptor and processors for endpoint : ListenerName(CONTROLLER) (kafka.network.SocketServer)
-[2025-05-14 23:11:13,753] INFO CONTROLLER: resolved wildcard host to DESKTOP-T3O0CHU. (org.apache.kafka.metadata.ListenerInfo)
-[2025-05-14 23:11:13,762] INFO authorizerStart completed for endpoint CONTROLLER. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)
-[2025-05-14 23:11:13,766] INFO [SharedServer id=10] Starting SharedServer (kafka.server.SharedServer)
-[2025-05-14 23:11:13,869] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Recovering unflushed segment 0. 0 recovered for __cluster_metadata-0. (org.apache.kafka.storage.internals.log.LogLoader)
-[2025-05-14 23:11:13,877] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Loading producer state till offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:13,880] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Reloading from producer snapshot and rebuilding producer state from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:13,881] INFO Deleted producer state snapshot /home/ammar/kafka_data/broker_4.0.0/__cluster_metadata-0/00000000000000002132.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
-[2025-05-14 23:11:13,882] INFO Deleted producer state snapshot /home/ammar/kafka_data/broker_4.0.0/__cluster_metadata-0/00000000000000002253.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
-[2025-05-14 23:11:13,890] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:14,076] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 2253 with 0 producer ids in 10 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2025-05-14 23:11:14,089] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Loading producer state till offset 2253 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:14,090] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Reloading from producer snapshot and rebuilding producer state from offset 2253 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:14,099] INFO [ProducerStateManager partition=__cluster_metadata-0] Loading producer state from snapshot file 'SnapshotFile(offset=2253, file=/home/ammar/kafka_data/broker_4.0.0/__cluster_metadata-0/00000000000000002253.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2025-05-14 23:11:14,102] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker_4.0.0] Producer state recovery took 11ms for snapshot load and 0ms for segment recovery from offset 2253 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2025-05-14 23:11:14,152] INFO Initialized snapshots with IDs SortedSet() from /home/ammar/kafka_data/broker_4.0.0/__cluster_metadata-0 (kafka.raft.KafkaMetadataLog$)
-[2025-05-14 23:11:14,167] INFO [raft-expiration-reaper]: Starting (kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper)
-[2025-05-14 23:11:14,180] INFO [RaftManager id=10] Reading KRaft snapshot and log as part of the initialization (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,238] INFO [RaftManager id=10] Starting voters are VoterSet(voters={10=VoterNode(voterKey=ReplicaKey(id=10, directoryId=<undefined>), listeners=Endpoints(endpoints={ListenerName(CONTROLLER)=localhost/127.0.0.1:9193}), supportedKRaftVersion=SupportedVersionRange[min_version:0, max_version:0])}) (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,241] INFO [RaftManager id=10] Starting request manager with static voters: [localhost:9193 (id: 10 rack: null isFenced: false)] (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,261] INFO [RaftManager id=10] Attempting durable transition to ResignedState(localId=10, epoch=4, voters=[10], electionTimeoutMs=1401, unackedVoters=[], preferredSuccessors=[]) from null (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,296] INFO [RaftManager id=10] Completed transition to ResignedState(localId=10, epoch=4, voters=[10], electionTimeoutMs=1401, unackedVoters=[], preferredSuccessors=[]) from null (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,302] INFO [RaftManager id=10] Completed transition to ProspectiveState(epoch=4, leaderId=OptionalInt[10], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1058, highWatermark=Optional.empty) from ResignedState(localId=10, epoch=4, voters=[10], electionTimeoutMs=1401, unackedVoters=[], preferredSuccessors=[]) (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,305] INFO [RaftManager id=10] Attempting durable transition to CandidateState(localId=10, localDirectoryId=Cco6adTtSDDCzLYisIcG7w, epoch=5, retries=1, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1361) from ProspectiveState(epoch=4, leaderId=OptionalInt[10], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1058, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,325] INFO [RaftManager id=10] Completed transition to CandidateState(localId=10, localDirectoryId=Cco6adTtSDDCzLYisIcG7w, epoch=5, retries=1, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1361) from ProspectiveState(epoch=4, leaderId=OptionalInt[10], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1058, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,332] INFO [RaftManager id=10] Attempting durable transition to Leader(localReplicaKey=ReplicaKey(id=10, directoryId=Cco6adTtSDDCzLYisIcG7w), epoch=5, epochStartOffset=2253, highWatermark=Optional.empty, voterStates={10=ReplicaState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=10, localDirectoryId=Cco6adTtSDDCzLYisIcG7w, epoch=5, retries=1, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1361) (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,344] INFO [RaftManager id=10] Completed transition to Leader(localReplicaKey=ReplicaKey(id=10, directoryId=Cco6adTtSDDCzLYisIcG7w), epoch=5, epochStartOffset=2253, highWatermark=Optional.empty, voterStates={10=ReplicaState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=10, localDirectoryId=Cco6adTtSDDCzLYisIcG7w, epoch=5, retries=1, epochElection=EpochElection(voterStates={10=VoterState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1361) (org.apache.kafka.raft.QuorumState)
-[2025-05-14 23:11:14,369] INFO [kafka-10-raft-outbound-request-thread]: Starting (org.apache.kafka.raft.KafkaNetworkChannel$SendThread)
-[2025-05-14 23:11:14,370] INFO [kafka-10-raft-io-thread]: Starting (org.apache.kafka.raft.KafkaRaftClientDriver)
-[2025-05-14 23:11:14,391] INFO [MetadataLoader id=10] initializeNewPublishers: the loader is still catching up because we still don't know the high water mark yet. (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,396] INFO [ControllerServer id=10] Waiting for controller quorum voters future (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,397] INFO [ControllerServer id=10] Finished waiting for controller quorum voters future (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,400] INFO [RaftManager id=10] High watermark set to LogOffsetMetadata(offset=2254, metadata=Optional[(segmentBaseOffset=0,relativePositionInSegment=163096)]) for the first time for epoch 5 based on indexOfHw 0 and voters [ReplicaState(replicaKey=ReplicaKey(id=10, directoryId=<undefined>), endOffset=Optional[LogOffsetMetadata(offset=2254, metadata=Optional[(segmentBaseOffset=0,relativePositionInSegment=163096)])], lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)] (org.apache.kafka.raft.LeaderState)
-[2025-05-14 23:11:14,423] INFO [RaftManager id=10] Registered the listener org.apache.kafka.image.loader.MetadataLoader@544005651 (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,426] INFO [RaftManager id=10] Setting the next offset of org.apache.kafka.image.loader.MetadataLoader@544005651 to 0 since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,431] INFO [MetadataLoader id=10] maybePublishMetadata(LOG_DELTA): The loader is still catching up because we have loaded up to offset 0, but the high water mark is 2254 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,469] INFO [RaftManager id=10] Registered the listener org.apache.kafka.controller.QuorumController$QuorumMetaLogListener@590166211 (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,470] INFO [RaftManager id=10] Setting the next offset of org.apache.kafka.controller.QuorumController$QuorumMetaLogListener@590166211 to 0 since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)
-[2025-05-14 23:11:14,496] INFO [controller-10-ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,499] INFO [controller-10-ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,505] INFO [controller-10-ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,509] INFO [controller-10-ThrottledChannelReaper-ControllerMutation]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,567] INFO [MetadataLoader id=10] maybePublishMetadata(LOG_DELTA): The loader finished catching up to the current high water mark of 2254 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,578] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing SnapshotGenerator with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,586] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,647] INFO [ControllerServer id=10] Waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,648] INFO [ControllerServer id=10] Finished waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,648] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing KRaftMetadataCachePublisher with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,649] INFO [SocketServer listenerType=CONTROLLER, nodeId=10] Enabling request processing. (kafka.network.SocketServer)
-[2025-05-14 23:11:14,649] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing FeaturesPublisher with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,653] INFO [ControllerServer id=10] Loaded new metadata Features(metadataVersion=4.0-IV3, finalizedFeatures={group.version=1, transaction.version=2, metadata.version=25}, finalizedFeaturesEpoch=2253). (org.apache.kafka.metadata.publisher.FeaturesPublisher)
-[2025-05-14 23:11:14,653] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing ControllerRegistrationsPublisher with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,654] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing ControllerRegistrationManager with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,654] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing DynamicConfigPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,656] INFO [ControllerRegistrationManager id=10 incarnation=ehc0fVnIQ3yNaE81fqfMcQ] Found registration for MRkFxdX9RYWtapsXVUjiUg instead of our incarnation. (kafka.server.ControllerRegistrationManager)
-[2025-05-14 23:11:14,656] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing DynamicClientQuotaPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,658] INFO Awaiting socket connections on 0.0.0.0:9193. (kafka.network.DataPlaneAcceptor)
-[2025-05-14 23:11:14,659] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing DynamicTopicClusterQuotaPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,662] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing ScramPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,666] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing DelegationTokenPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,671] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing ControllerMetadataMetricsPublisher with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,672] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing AclPublisher controller id=10 with a snapshot at offset 2253 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:14,674] INFO [AclPublisher controller id=10] Loading authorizer snapshot at offset 2253 (kafka.server.metadata.AclPublisher)
-[2025-05-14 23:11:14,682] INFO [StandardAuthorizer 10] Initialized with 2 acl(s). (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:14,683] INFO [StandardAuthorizer 10] Completed initial ACL load process. (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:14,699] INFO [controller-10-to-controller-registration-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,700] INFO [ControllerRegistrationManager id=10 incarnation=ehc0fVnIQ3yNaE81fqfMcQ] initialized channel manager. (kafka.server.ControllerRegistrationManager)
-[2025-05-14 23:11:14,701] INFO [ControllerServer id=10] Waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,701] INFO [ControllerServer id=10] Finished waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,702] INFO [controller-10-to-controller-registration-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,702] INFO [ControllerServer id=10] Waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,702] INFO [ControllerServer id=10] Finished waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)
-[2025-05-14 23:11:14,704] INFO [BrokerServer id=10] Transition from SHUTDOWN to STARTING (kafka.server.BrokerServer)
-[2025-05-14 23:11:14,705] INFO [BrokerServer id=10] Starting broker (kafka.server.BrokerServer)
-[2025-05-14 23:11:14,711] INFO [ControllerRegistrationManager id=10 incarnation=ehc0fVnIQ3yNaE81fqfMcQ] sendControllerRegistration: attempting to send ControllerRegistrationRequestData(controllerId=10, incarnationId=ehc0fVnIQ3yNaE81fqfMcQ, zkMigrationReady=false, listeners=[Listener(name='CONTROLLER', host='DESKTOP-T3O0CHU.', port=9193, securityProtocol=0)], features=[Feature(name='group.version', minSupportedVersion=0, maxSupportedVersion=1), Feature(name='transaction.version', minSupportedVersion=0, maxSupportedVersion=2), Feature(name='eligible.leader.replicas.version', minSupportedVersion=0, maxSupportedVersion=1), Feature(name='kraft.version', minSupportedVersion=0, maxSupportedVersion=1), Feature(name='metadata.version', minSupportedVersion=7, maxSupportedVersion=25)]) (kafka.server.ControllerRegistrationManager)
-[2025-05-14 23:11:14,714] INFO [broker-10-ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,716] INFO [broker-10-ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,717] INFO [broker-10-ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,718] INFO [broker-10-ThrottledChannelReaper-ControllerMutation]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2025-05-14 23:11:14,759] INFO [BrokerServer id=10] Waiting for controller quorum voters future (kafka.server.BrokerServer)
-[2025-05-14 23:11:14,759] INFO [BrokerServer id=10] Finished waiting for controller quorum voters future (kafka.server.BrokerServer)
-[2025-05-14 23:11:14,767] INFO [broker-10-to-controller-forwarding-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,768] INFO [broker-10-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,784] INFO [client-metrics-reaper]: Starting (org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper)
-[2025-05-14 23:11:14,835] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
-[2025-05-14 23:11:14,848] INFO [SocketServer listenerType=BROKER, nodeId=10] Created data-plane acceptor and processors for endpoint : ListenerName(PLAINTEXT) (kafka.network.SocketServer)
-[2025-05-14 23:11:14,850] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
-[2025-05-14 23:11:14,863] INFO [ControllerRegistrationManager id=10 incarnation=ehc0fVnIQ3yNaE81fqfMcQ] Our registration has been persisted to the metadata log. (kafka.server.ControllerRegistrationManager)
-[2025-05-14 23:11:14,865] INFO [ControllerRegistrationManager id=10 incarnation=ehc0fVnIQ3yNaE81fqfMcQ] RegistrationResponseHandler: controller acknowledged ControllerRegistrationRequest. (kafka.server.ControllerRegistrationManager)
-[2025-05-14 23:11:14,912] INFO Successfully logged in. (org.apache.kafka.common.security.authenticator.AbstractLogin)
-[2025-05-14 23:11:14,920] INFO [SocketServer listenerType=BROKER, nodeId=10] Created data-plane acceptor and processors for endpoint : ListenerName(SASL_PLAINTEXT) (kafka.network.SocketServer)
-[2025-05-14 23:11:14,928] INFO [broker-10-to-controller-alter-partition-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,929] INFO [broker-10-to-controller-alter-partition-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,939] INFO [broker-10-to-controller-directory-assignments-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,940] INFO [broker-10-to-controller-directory-assignments-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:14,955] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,956] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,957] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,958] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,959] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,959] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:14,977] INFO [BrokerServer id=10] Using no op persister (kafka.server.BrokerServer)
-[2025-05-14 23:11:14,980] INFO [group-coordinator-reaper]: Starting (org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper)
-[2025-05-14 23:11:15,005] INFO [group-coordinator-event-processor-0]: Starting (org.apache.kafka.coordinator.common.runtime.MultiThreadedEventProcessor$EventProcessorThread)
-[2025-05-14 23:11:15,005] INFO [group-coordinator-event-processor-1]: Starting (org.apache.kafka.coordinator.common.runtime.MultiThreadedEventProcessor$EventProcessorThread)
-[2025-05-14 23:11:15,006] INFO [group-coordinator-event-processor-2]: Starting (org.apache.kafka.coordinator.common.runtime.MultiThreadedEventProcessor$EventProcessorThread)
-[2025-05-14 23:11:15,006] INFO [group-coordinator-event-processor-3]: Starting (org.apache.kafka.coordinator.common.runtime.MultiThreadedEventProcessor$EventProcessorThread)
-[2025-05-14 23:11:15,067] INFO [broker-10-to-controller-heartbeat-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:15,068] INFO [StandardAuthorizer 10] set super.users=User:ANONYMOUS,User:admin, default result=DENIED (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:15,068] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:11:15,071] INFO [BrokerLifecycleManager id=10] Incarnation Z9WMv5XnR0GdTIQDEOC6Jw of broker 10 in cluster 53umScLzTeajz4ICoMMl1A is now STARTING. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:15,084] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:15,085] INFO [share-group-lock-timeout-reaper]: Starting (org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper)
-[2025-05-14 23:11:15,097] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2025-05-14 23:11:15,121] INFO [BrokerServer id=10] Waiting for the broker metadata publishers to be installed (kafka.server.BrokerServer)
-[2025-05-14 23:11:15,122] INFO [BrokerServer id=10] Finished waiting for the broker metadata publishers to be installed (kafka.server.BrokerServer)
-[2025-05-14 23:11:15,122] INFO [BrokerServer id=10] Waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)
-[2025-05-14 23:11:15,122] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing MetadataVersionPublisher(id=10) with a snapshot at offset 2254 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:15,123] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing BrokerMetadataPublisher with a snapshot at offset 2254 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:15,124] INFO [BrokerMetadataPublisher id=10] Publishing initial metadata at offset OffsetAndEpoch(offset=2254, epoch=5) with metadata.version Optional[4.0-IV3]. (kafka.server.metadata.BrokerMetadataPublisher)
-[2025-05-14 23:11:15,126] INFO Loading logs from log dirs ArrayBuffer(/home/ammar/kafka_data/broker_4.0.0) (kafka.log.LogManager)
-[2025-05-14 23:11:15,132] INFO No logs found to be loaded in /home/ammar/kafka_data/broker_4.0.0 (kafka.log.LogManager)
-[2025-05-14 23:11:15,155] INFO Loaded 0 logs in 25ms (kafka.log.LogManager)
-[2025-05-14 23:11:15,156] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)
-[2025-05-14 23:11:15,157] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)
-[2025-05-14 23:11:15,189] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:15,238] INFO [kafka-log-cleaner-thread-0]: Starting (kafka.log.LogCleaner$CleanerThread)
-[2025-05-14 23:11:15,245] INFO [LogDirFailureHandler]: Starting (kafka.server.ReplicaManager$LogDirFailureHandler)
-[2025-05-14 23:11:15,246] INFO [AddPartitionsToTxnSenderThread-10]: Starting (kafka.server.AddPartitionsToTxnManager)
-[2025-05-14 23:11:15,247] INFO [GroupCoordinator id=10] Starting up. (org.apache.kafka.coordinator.group.GroupCoordinatorService)
-[2025-05-14 23:11:15,248] INFO [GroupCoordinator id=10] Startup complete. (org.apache.kafka.coordinator.group.GroupCoordinatorService)
-[2025-05-14 23:11:15,249] INFO [TransactionCoordinator id=10] Starting up. (kafka.coordinator.transaction.TransactionCoordinator)
-[2025-05-14 23:11:15,251] INFO [TxnMarkerSenderThread-10]: Starting (kafka.coordinator.transaction.TransactionMarkerChannelManager)
-[2025-05-14 23:11:15,251] INFO [TransactionCoordinator id=10] Startup complete. (kafka.coordinator.transaction.TransactionCoordinator)
-[2025-05-14 23:11:15,261] INFO [AclPublisher broker id=10] Loading authorizer snapshot at offset 2254 (kafka.server.metadata.AclPublisher)
-[2025-05-14 23:11:15,262] INFO [StandardAuthorizer 10] Initialized with 2 acl(s). (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:15,263] INFO [StandardAuthorizer 10] Completed initial ACL load process. (org.apache.kafka.metadata.authorizer.StandardAuthorizerData)
-[2025-05-14 23:11:15,265] INFO [MetadataLoader id=10] InitializeNewPublishers: initializing BrokerRegistrationTracker(id=10) with a snapshot at offset 2254 (org.apache.kafka.image.loader.MetadataLoader)
-[2025-05-14 23:11:15,397] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:15,807] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:16,613] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:18,188] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:21,434] INFO [BrokerLifecycleManager id=10] Unable to register broker 10 because the controller returned error DUPLICATE_BROKER_REGISTRATION (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:25,968] INFO [BrokerLifecycleManager id=10] Successfully registered broker 10 with broker epoch 2278 (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:25,978] INFO [BrokerLifecycleManager id=10] The broker has caught up. Transitioning from STARTING to RECOVERY. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:25,978] INFO [BrokerServer id=10] Finished waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)
-[2025-05-14 23:11:25,978] INFO [BrokerServer id=10] Waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)
-[2025-05-14 23:11:25,979] INFO [BrokerServer id=10] Finished waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)
-[2025-05-14 23:11:25,980] INFO KafkaConfig values: 
-	add.partitions.to.txn.retry.backoff.max.ms = 100
-	add.partitions.to.txn.retry.backoff.ms = 20
-	advertised.listeners = PLAINTEXT://172.23.38.230:9192,SASL_PLAINTEXT://172.23.38.230:9194
-	alter.config.policy.class.name = null
-	alter.log.dirs.replication.quota.window.num = 11
-	alter.log.dirs.replication.quota.window.size.seconds = 1
-	authorizer.class.name = org.apache.kafka.metadata.authorizer.StandardAuthorizer
-	auto.create.topics.enable = true
-	auto.leader.rebalance.enable = true
-	background.threads = 10
-	broker.heartbeat.interval.ms = 2000
-	broker.id = 10
-	broker.rack = null
-	broker.session.timeout.ms = 9000
-	client.quota.callback.class = null
-	compression.gzip.level = -1
-	compression.lz4.level = 9
-	compression.type = producer
-	compression.zstd.level = 3
-	connection.failed.authentication.delay.ms = 100
-	connections.max.idle.ms = 600000
-	connections.max.reauth.ms = 0
-	controlled.shutdown.enable = true
-	controller.listener.names = CONTROLLER
-	controller.performance.always.log.threshold.ms = 2000
-	controller.performance.sample.period.ms = 60000
-	controller.quorum.append.linger.ms = 25
-	controller.quorum.bootstrap.servers = []
-	controller.quorum.election.backoff.max.ms = 1000
-	controller.quorum.election.timeout.ms = 1000
-	controller.quorum.fetch.timeout.ms = 2000
-	controller.quorum.request.timeout.ms = 2000
-	controller.quorum.retry.backoff.ms = 20
-	controller.quorum.voters = [10@localhost:9193]
-	controller.quota.window.num = 11
-	controller.quota.window.size.seconds = 1
-	controller.socket.timeout.ms = 30000
-	create.topic.policy.class.name = null
-	default.replication.factor = 1
-	delegation.token.expiry.check.interval.ms = 3600000
-	delegation.token.expiry.time.ms = 86400000
-	delegation.token.max.lifetime.ms = 604800000
-	delegation.token.secret.key = null
-	delete.records.purgatory.purge.interval.requests = 1
-	delete.topic.enable = true
-	early.start.listeners = null
-	fetch.max.bytes = 57671680
-	fetch.purgatory.purge.interval.requests = 1000
-	group.consumer.assignors = [uniform, range]
-	group.consumer.heartbeat.interval.ms = 5000
-	group.consumer.max.heartbeat.interval.ms = 15000
-	group.consumer.max.session.timeout.ms = 60000
-	group.consumer.max.size = 2147483647
-	group.consumer.migration.policy = bidirectional
-	group.consumer.min.heartbeat.interval.ms = 5000
-	group.consumer.min.session.timeout.ms = 45000
-	group.consumer.session.timeout.ms = 45000
-	group.coordinator.append.linger.ms = 5
-	group.coordinator.new.enable = true
-	group.coordinator.rebalance.protocols = [classic, consumer]
-	group.coordinator.threads = 4
-	group.initial.rebalance.delay.ms = 3000
-	group.max.session.timeout.ms = 1800000
-	group.max.size = 2147483647
-	group.min.session.timeout.ms = 6000
-	group.share.delivery.count.limit = 5
-	group.share.enable = false
-	group.share.heartbeat.interval.ms = 5000
-	group.share.max.groups = 10
-	group.share.max.heartbeat.interval.ms = 15000
-	group.share.max.record.lock.duration.ms = 60000
-	group.share.max.session.timeout.ms = 60000
-	group.share.max.size = 200
-	group.share.min.heartbeat.interval.ms = 5000
-	group.share.min.record.lock.duration.ms = 15000
-	group.share.min.session.timeout.ms = 45000
-	group.share.partition.max.record.locks = 200
-	group.share.persister.class.name = org.apache.kafka.server.share.persister.DefaultStatePersister
-	group.share.record.lock.duration.ms = 30000
-	group.share.session.timeout.ms = 45000
-	initial.broker.registration.timeout.ms = 60000
-	inter.broker.listener.name = PLAINTEXT
-	kafka.metrics.polling.interval.secs = 10
-	kafka.metrics.reporters = []
-	leader.imbalance.check.interval.seconds = 300
-	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT
-	listeners = PLAINTEXT://0.0.0.0:9192,CONTROLLER://:9193,SASL_PLAINTEXT://0.0.0.0:9194
-	log.cleaner.backoff.ms = 15000
-	log.cleaner.dedupe.buffer.size = 134217728
-	log.cleaner.delete.retention.ms = 86400000
-	log.cleaner.enable = true
-	log.cleaner.io.buffer.load.factor = 0.9
-	log.cleaner.io.buffer.size = 524288
-	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
-	log.cleaner.max.compaction.lag.ms = 9223372036854775807
-	log.cleaner.min.cleanable.ratio = 0.5
-	log.cleaner.min.compaction.lag.ms = 0
-	log.cleaner.threads = 1
-	log.cleanup.policy = [delete]
-	log.dir = /tmp/kafka-logs
-	log.dir.failure.timeout.ms = 30000
-	log.dirs = /home/ammar/kafka_data/broker_4.0.0
-	log.flush.interval.messages = 9223372036854775807
-	log.flush.interval.ms = null
-	log.flush.offset.checkpoint.interval.ms = 60000
-	log.flush.scheduler.interval.ms = 9223372036854775807
-	log.flush.start.offset.checkpoint.interval.ms = 60000
-	log.index.interval.bytes = 4096
-	log.index.size.max.bytes = 10485760
-	log.initial.task.delay.ms = 30000
-	log.local.retention.bytes = -2
-	log.local.retention.ms = -2
-	log.message.timestamp.after.max.ms = 3600000
-	log.message.timestamp.before.max.ms = 9223372036854775807
-	log.message.timestamp.type = CreateTime
-	log.preallocate = false
-	log.retention.bytes = -1
-	log.retention.check.interval.ms = 300000
-	log.retention.hours = 168
-	log.retention.minutes = null
-	log.retention.ms = null
-	log.roll.hours = 168
-	log.roll.jitter.hours = 0
-	log.roll.jitter.ms = null
-	log.roll.ms = null
-	log.segment.bytes = 1073741824
-	log.segment.delete.delay.ms = 60000
-	max.connection.creation.rate = 2147483647
-	max.connections = 2147483647
-	max.connections.per.ip = 2147483647
-	max.connections.per.ip.overrides = 
-	max.incremental.fetch.session.cache.slots = 1000
-	max.request.partition.size.limit = 2000
-	message.max.bytes = 1048588
-	metadata.log.dir = null
-	metadata.log.max.record.bytes.between.snapshots = 20971520
-	metadata.log.max.snapshot.interval.ms = 3600000
-	metadata.log.segment.bytes = 1073741824
-	metadata.log.segment.min.bytes = 8388608
-	metadata.log.segment.ms = 604800000
-	metadata.max.idle.interval.ms = 500
-	metadata.max.retention.bytes = 104857600
-	metadata.max.retention.ms = 604800000
-	metric.reporters = [org.apache.kafka.common.metrics.JmxReporter]
-	metrics.num.samples = 2
-	metrics.recording.level = INFO
-	metrics.sample.window.ms = 30000
-	min.insync.replicas = 1
-	node.id = 10
-	num.io.threads = 8
-	num.network.threads = 3
-	num.partitions = 1
-	num.recovery.threads.per.data.dir = 1
-	num.replica.alter.log.dirs.threads = null
-	num.replica.fetchers = 1
-	offset.metadata.max.bytes = 4096
-	offsets.commit.timeout.ms = 5000
-	offsets.load.buffer.size = 5242880
-	offsets.retention.check.interval.ms = 600000
-	offsets.retention.minutes = 10080
-	offsets.topic.compression.codec = 0
-	offsets.topic.num.partitions = 50
-	offsets.topic.replication.factor = 1
-	offsets.topic.segment.bytes = 104857600
-	principal.builder.class = class org.apache.kafka.common.security.authenticator.DefaultKafkaPrincipalBuilder
-	process.roles = [broker, controller]
-	producer.id.expiration.check.interval.ms = 600000
-	producer.id.expiration.ms = 86400000
-	producer.purgatory.purge.interval.requests = 1000
-	queued.max.request.bytes = -1
-	queued.max.requests = 500
-	quota.window.num = 11
-	quota.window.size.seconds = 1
-	remote.fetch.max.wait.ms = 500
-	remote.list.offsets.request.timeout.ms = 30000
-	remote.log.index.file.cache.total.size.bytes = 1073741824
-	remote.log.manager.copier.thread.pool.size = 10
-	remote.log.manager.copy.max.bytes.per.second = 9223372036854775807
-	remote.log.manager.copy.quota.window.num = 11
-	remote.log.manager.copy.quota.window.size.seconds = 1
-	remote.log.manager.expiration.thread.pool.size = 10
-	remote.log.manager.fetch.max.bytes.per.second = 9223372036854775807
-	remote.log.manager.fetch.quota.window.num = 11
-	remote.log.manager.fetch.quota.window.size.seconds = 1
-	remote.log.manager.task.interval.ms = 30000
-	remote.log.manager.task.retry.backoff.max.ms = 30000
-	remote.log.manager.task.retry.backoff.ms = 500
-	remote.log.manager.task.retry.jitter = 0.2
-	remote.log.manager.thread.pool.size = 2
-	remote.log.metadata.custom.metadata.max.bytes = 128
-	remote.log.metadata.manager.class.name = org.apache.kafka.server.log.remote.metadata.storage.TopicBasedRemoteLogMetadataManager
-	remote.log.metadata.manager.class.path = null
-	remote.log.metadata.manager.impl.prefix = rlmm.config.
-	remote.log.metadata.manager.listener.name = null
-	remote.log.reader.max.pending.tasks = 100
-	remote.log.reader.threads = 10
-	remote.log.storage.manager.class.name = null
-	remote.log.storage.manager.class.path = null
-	remote.log.storage.manager.impl.prefix = rsm.config.
-	remote.log.storage.system.enable = false
-	replica.fetch.backoff.ms = 1000
-	replica.fetch.max.bytes = 1048576
-	replica.fetch.min.bytes = 1
-	replica.fetch.response.max.bytes = 10485760
-	replica.fetch.wait.max.ms = 500
-	replica.high.watermark.checkpoint.interval.ms = 5000
-	replica.lag.time.max.ms = 30000
-	replica.selector.class = null
-	replica.socket.receive.buffer.bytes = 65536
-	replica.socket.timeout.ms = 30000
-	replication.quota.window.num = 11
-	replication.quota.window.size.seconds = 1
-	request.timeout.ms = 30000
-	sasl.client.callback.handler.class = null
-	sasl.enabled.mechanisms = [PLAIN]
-	sasl.jaas.config = null
-	sasl.kerberos.kinit.cmd = /usr/bin/kinit
-	sasl.kerberos.min.time.before.relogin = 60000
-	sasl.kerberos.principal.to.local.rules = [DEFAULT]
-	sasl.kerberos.service.name = null
-	sasl.kerberos.ticket.renew.jitter = 0.05
-	sasl.kerberos.ticket.renew.window.factor = 0.8
-	sasl.login.callback.handler.class = null
-	sasl.login.class = null
-	sasl.login.connect.timeout.ms = null
-	sasl.login.read.timeout.ms = null
-	sasl.login.refresh.buffer.seconds = 300
-	sasl.login.refresh.min.period.seconds = 60
-	sasl.login.refresh.window.factor = 0.8
-	sasl.login.refresh.window.jitter = 0.05
-	sasl.login.retry.backoff.max.ms = 10000
-	sasl.login.retry.backoff.ms = 100
-	sasl.mechanism.controller.protocol = GSSAPI
-	sasl.mechanism.inter.broker.protocol = PLAIN
-	sasl.oauthbearer.clock.skew.seconds = 30
-	sasl.oauthbearer.expected.audience = null
-	sasl.oauthbearer.expected.issuer = null
-	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
-	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
-	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
-	sasl.oauthbearer.jwks.endpoint.url = null
-	sasl.oauthbearer.scope.claim.name = scope
-	sasl.oauthbearer.sub.claim.name = sub
-	sasl.oauthbearer.token.endpoint.url = null
-	sasl.server.callback.handler.class = null
-	sasl.server.max.receive.size = 524288
-	security.inter.broker.protocol = PLAINTEXT
-	security.providers = null
-	server.max.startup.time.ms = 9223372036854775807
-	share.coordinator.append.linger.ms = 10
-	share.coordinator.load.buffer.size = 5242880
-	share.coordinator.snapshot.update.records.per.snapshot = 500
-	share.coordinator.state.topic.compression.codec = 0
-	share.coordinator.state.topic.min.isr = 2
-	share.coordinator.state.topic.num.partitions = 50
-	share.coordinator.state.topic.prune.interval.ms = 300000
-	share.coordinator.state.topic.replication.factor = 3
-	share.coordinator.state.topic.segment.bytes = 104857600
-	share.coordinator.threads = 1
-	share.coordinator.write.timeout.ms = 5000
-	share.fetch.max.fetch.records = 2147483647
-	share.fetch.purgatory.purge.interval.requests = 1000
-	socket.connection.setup.timeout.max.ms = 30000
-	socket.connection.setup.timeout.ms = 10000
-	socket.listen.backlog.size = 50
-	socket.receive.buffer.bytes = 102400
-	socket.request.max.bytes = 104857600
-	socket.send.buffer.bytes = 102400
-	ssl.allow.dn.changes = false
-	ssl.allow.san.changes = false
-	ssl.cipher.suites = []
-	ssl.client.auth = none
-	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
-	ssl.endpoint.identification.algorithm = https
-	ssl.engine.factory.class = null
-	ssl.key.password = null
-	ssl.keymanager.algorithm = SunX509
-	ssl.keystore.certificate.chain = null
-	ssl.keystore.key = null
-	ssl.keystore.location = null
-	ssl.keystore.password = null
-	ssl.keystore.type = JKS
-	ssl.principal.mapping.rules = DEFAULT
-	ssl.protocol = TLSv1.3
-	ssl.provider = null
-	ssl.secure.random.implementation = null
-	ssl.trustmanager.algorithm = PKIX
-	ssl.truststore.certificates = null
-	ssl.truststore.location = null
-	ssl.truststore.password = null
-	ssl.truststore.type = JKS
-	telemetry.max.bytes = 1048576
-	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
-	transaction.max.timeout.ms = 900000
-	transaction.partition.verification.enable = true
-	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
-	transaction.state.log.load.buffer.size = 5242880
-	transaction.state.log.min.isr = 1
-	transaction.state.log.num.partitions = 50
-	transaction.state.log.replication.factor = 1
-	transaction.state.log.segment.bytes = 104857600
-	transactional.id.expiration.ms = 604800000
-	unclean.leader.election.enable = false
-	unclean.leader.election.interval.ms = 300000
-	unstable.api.versions.enable = false
-	unstable.feature.versions.enable = false
- (org.apache.kafka.common.config.AbstractConfig)
-[2025-05-14 23:11:25,989] INFO [BrokerServer id=10] Waiting for the broker to be unfenced (kafka.server.BrokerServer)
-[2025-05-14 23:11:25,991] INFO [BrokerLifecycleManager id=10] The broker is in RECOVERY. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:26,024] INFO [BrokerLifecycleManager id=10] The broker has been unfenced. Transitioning from RECOVERY to RUNNING. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:11:26,024] INFO [BrokerServer id=10] Finished waiting for the broker to be unfenced (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,025] INFO authorizerStart completed for endpoint PLAINTEXT. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)
-[2025-05-14 23:11:26,026] INFO authorizerStart completed for endpoint SASL_PLAINTEXT. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)
-[2025-05-14 23:11:26,026] INFO [SocketServer listenerType=BROKER, nodeId=10] Enabling request processing. (kafka.network.SocketServer)
-[2025-05-14 23:11:26,026] INFO Awaiting socket connections on 0.0.0.0:9194. (kafka.network.DataPlaneAcceptor)
-[2025-05-14 23:11:26,028] INFO Awaiting socket connections on 0.0.0.0:9192. (kafka.network.DataPlaneAcceptor)
-[2025-05-14 23:11:26,030] INFO [BrokerServer id=10] Waiting for all of the authorizer futures to be completed (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,030] INFO [BrokerServer id=10] Finished waiting for all of the authorizer futures to be completed (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,030] INFO [BrokerServer id=10] Waiting for all of the SocketServer Acceptors to be started (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,030] INFO [BrokerServer id=10] Finished waiting for all of the SocketServer Acceptors to be started (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,030] INFO [BrokerServer id=10] Transition from STARTING to STARTED (kafka.server.BrokerServer)
-[2025-05-14 23:11:26,031] INFO Kafka version: 4.0.0 (org.apache.kafka.common.utils.AppInfoParser)
-[2025-05-14 23:11:26,031] INFO Kafka commitId: 985bc99521dd22bb (org.apache.kafka.common.utils.AppInfoParser)
-[2025-05-14 23:11:26,031] INFO Kafka startTimeMs: 1747253486030 (org.apache.kafka.common.utils.AppInfoParser)
-[2025-05-14 23:11:26,033] INFO [KafkaRaftServer nodeId=10] Kafka Server started (kafka.server.KafkaRaftServer)
-[2025-05-14 23:17:51,062] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:17:51,064] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 185 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:17:51,064] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:17:51,065] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:17:55,674] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:17:55,674] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 186 due to node 10 being disconnected (elapsed time since creation: 4508ms, elapsed time since send: 4505ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:17:55,674] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:17:55,675] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:00,377] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:00,377] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 188 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4501ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:00,378] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:00,378] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:05,278] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:05,279] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 190 due to node 10 being disconnected (elapsed time since creation: 4505ms, elapsed time since send: 4503ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:05,279] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:05,280] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:10,572] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:10,572] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 192 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4501ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:10,573] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:10,573] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:16,700] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:16,700] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 194 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4502ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:16,701] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:16,701] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:24,469] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:24,469] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 196 due to node 10 being disconnected (elapsed time since creation: 4507ms, elapsed time since send: 4505ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:24,470] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:24,470] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:33,436] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:33,437] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 198 due to node 10 being disconnected (elapsed time since creation: 4506ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:33,437] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:33,437] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:42,400] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:42,400] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 200 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4502ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:42,400] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:42,400] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:18:57,047] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:57,048] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 202 due to node 10 being disconnected (elapsed time since creation: 4503ms, elapsed time since send: 4501ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:18:57,048] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:18:57,048] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:06,051] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:06,052] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 204 due to node 10 being disconnected (elapsed time since creation: 4502ms, elapsed time since send: 4501ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:06,052] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:06,052] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:15,014] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:15,015] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 206 due to node 10 being disconnected (elapsed time since creation: 4506ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:15,015] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:15,015] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:24,021] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:24,022] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 208 due to node 10 being disconnected (elapsed time since creation: 4505ms, elapsed time since send: 4503ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:24,022] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:24,022] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:36,260] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:36,260] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 210 due to node 10 being disconnected (elapsed time since creation: 4506ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:36,261] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:36,261] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:37,763] INFO [NodeToControllerChannelManager id=10 name=forwarding] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:37,763] INFO [NodeToControllerChannelManager id=10 name=forwarding] Cancelled in-flight ENVELOPE request with correlation id 0 due to node 10 being disconnected (elapsed time since creation: 33257ms, elapsed time since send: 33256ms, throttle time: 0ms, request timeout: 30000ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:37,764] INFO [broker-10-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:37,814] INFO [broker-10-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:45,266] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:45,267] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 212 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4502ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:45,267] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:45,268] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:19:54,243] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:54,243] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 214 due to node 10 being disconnected (elapsed time since creation: 4506ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:19:54,243] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:19:54,243] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:20:11,214] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:11,214] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 216 due to node 10 being disconnected (elapsed time since creation: 12495ms, elapsed time since send: 12493ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:11,215] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:20:11,215] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:20:19,375] INFO [NodeToControllerChannelManager id=10 name=forwarding] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:19,375] INFO [NodeToControllerChannelManager id=10 name=forwarding] Cancelled in-flight ENVELOPE request with correlation id 3 due to node 10 being disconnected (elapsed time since creation: 41561ms, elapsed time since send: 41559ms, throttle time: 0ms, request timeout: 30000ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:19,375] INFO [broker-10-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:20:19,425] INFO [broker-10-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:20:20,182] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:20,182] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 218 due to node 10 being disconnected (elapsed time since creation: 4506ms, elapsed time since send: 4504ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:20,183] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:20:20,183] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:20:29,109] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Disconnecting from node 10 due to request timeout. (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:29,110] INFO [NodeToControllerChannelManager id=10 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 220 due to node 10 being disconnected (elapsed time since creation: 4504ms, elapsed time since send: 4503ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
-[2025-05-14 23:20:29,110] INFO [broker-10-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9193 (id: 10 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
-[2025-05-14 23:20:29,110] INFO [BrokerLifecycleManager id=10] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
-[2025-05-14 23:20:35,483] ERROR Encountered fatal fault: Unexpected error in raft IO thread (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
+[2025-05-17 12:07:59,152] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
+[2025-05-17 12:07:59,642] INFO Registered signal handlers for TERM, INT, HUP (org.apache.kafka.common.utils.LoggingSignalHandler)
+[2025-05-17 12:07:59,645] INFO [ControllerServer id=1] Starting controller (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,054] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
+[2025-05-17 12:08:00,100] INFO [SocketServer listenerType=CONTROLLER, nodeId=1] Created data-plane acceptor and processors for endpoint : ListenerName(CONTROLLER) (kafka.network.SocketServer)
+[2025-05-17 12:08:00,109] INFO CONTROLLER: resolved wildcard host to DESKTOP-T3O0CHU. (org.apache.kafka.metadata.ListenerInfo)
+[2025-05-17 12:08:00,115] INFO authorizerStart completed for endpoint CONTROLLER. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)
+[2025-05-17 12:08:00,118] INFO [SharedServer id=1] Starting SharedServer (kafka.server.SharedServer)
+[2025-05-17 12:08:00,172] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Recovering unflushed segment 0. 0 recovered for __cluster_metadata-0. (org.apache.kafka.storage.internals.log.LogLoader)
+[2025-05-17 12:08:00,174] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Loading producer state till offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,175] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Reloading from producer snapshot and rebuilding producer state from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,179] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,201] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 41 with 0 producer ids in 8 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2025-05-17 12:08:00,210] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Loading producer state till offset 41 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,210] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Reloading from producer snapshot and rebuilding producer state from offset 41 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,213] INFO [ProducerStateManager partition=__cluster_metadata-0] Loading producer state from snapshot file 'SnapshotFile(offset=41, file=/home/ammar/kafka_data/broker1_4.0.0/__cluster_metadata-0/00000000000000000041.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2025-05-17 12:08:00,214] INFO [LogLoader partition=__cluster_metadata-0, dir=/home/ammar/kafka_data/broker1_4.0.0] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 41 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2025-05-17 12:08:00,247] INFO Initialized snapshots with IDs SortedSet() from /home/ammar/kafka_data/broker1_4.0.0/__cluster_metadata-0 (kafka.raft.KafkaMetadataLog$)
+[2025-05-17 12:08:00,261] INFO [raft-expiration-reaper]: Starting (kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper)
+[2025-05-17 12:08:00,274] INFO [RaftManager id=1] Reading KRaft snapshot and log as part of the initialization (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,299] INFO [RaftManager id=1] Starting voters are VoterSet(voters={1=VoterNode(voterKey=ReplicaKey(id=1, directoryId=<undefined>), listeners=Endpoints(endpoints={ListenerName(CONTROLLER)=localhost/127.0.0.1:9093}), supportedKRaftVersion=SupportedVersionRange[min_version:0, max_version:0])}) (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,302] INFO [RaftManager id=1] Starting request manager with static voters: [localhost:9093 (id: 1 rack: null isFenced: false)] (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,318] INFO [RaftManager id=1] Attempting durable transition to ResignedState(localId=1, epoch=1, voters=[1], electionTimeoutMs=1533, unackedVoters=[], preferredSuccessors=[]) from null (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,348] INFO [RaftManager id=1] Completed transition to ResignedState(localId=1, epoch=1, voters=[1], electionTimeoutMs=1533, unackedVoters=[], preferredSuccessors=[]) from null (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,356] INFO [RaftManager id=1] Completed transition to ProspectiveState(epoch=1, leaderId=OptionalInt[1], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1159, highWatermark=Optional.empty) from ResignedState(localId=1, epoch=1, voters=[1], electionTimeoutMs=1533, unackedVoters=[], preferredSuccessors=[]) (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,359] INFO [RaftManager id=1] Attempting durable transition to CandidateState(localId=1, localDirectoryId=kXUJD2A9YWQ2GIJctGNUGg, epoch=2, retries=1, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1877) from ProspectiveState(epoch=1, leaderId=OptionalInt[1], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1159, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,371] INFO [RaftManager id=1] Completed transition to CandidateState(localId=1, localDirectoryId=kXUJD2A9YWQ2GIJctGNUGg, epoch=2, retries=1, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1877) from ProspectiveState(epoch=1, leaderId=OptionalInt[1], retries=1, votedKey=Optional.empty, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), electionTimeoutMs=1159, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,376] INFO [RaftManager id=1] Attempting durable transition to Leader(localReplicaKey=ReplicaKey(id=1, directoryId=kXUJD2A9YWQ2GIJctGNUGg), epoch=2, epochStartOffset=41, highWatermark=Optional.empty, voterStates={1=ReplicaState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=1, localDirectoryId=kXUJD2A9YWQ2GIJctGNUGg, epoch=2, retries=1, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1877) (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,388] INFO [RaftManager id=1] Completed transition to Leader(localReplicaKey=ReplicaKey(id=1, directoryId=kXUJD2A9YWQ2GIJctGNUGg), epoch=2, epochStartOffset=41, highWatermark=Optional.empty, voterStates={1=ReplicaState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=1, localDirectoryId=kXUJD2A9YWQ2GIJctGNUGg, epoch=2, retries=1, epochElection=EpochElection(voterStates={1=VoterState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), state=GRANTED)}), highWatermark=Optional.empty, electionTimeoutMs=1877) (org.apache.kafka.raft.QuorumState)
+[2025-05-17 12:08:00,411] INFO [kafka-1-raft-outbound-request-thread]: Starting (org.apache.kafka.raft.KafkaNetworkChannel$SendThread)
+[2025-05-17 12:08:00,411] INFO [kafka-1-raft-io-thread]: Starting (org.apache.kafka.raft.KafkaRaftClientDriver)
+[2025-05-17 12:08:00,439] INFO [MetadataLoader id=1] initializeNewPublishers: the loader is still catching up because we still don't know the high water mark yet. (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,440] INFO [ControllerServer id=1] Waiting for controller quorum voters future (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,440] INFO [ControllerServer id=1] Finished waiting for controller quorum voters future (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,446] INFO [RaftManager id=1] High watermark set to LogOffsetMetadata(offset=42, metadata=Optional[(segmentBaseOffset=0,relativePositionInSegment=3321)]) for the first time for epoch 2 based on indexOfHw 0 and voters [ReplicaState(replicaKey=ReplicaKey(id=1, directoryId=<undefined>), endOffset=Optional[LogOffsetMetadata(offset=42, metadata=Optional[(segmentBaseOffset=0,relativePositionInSegment=3321)])], lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)] (org.apache.kafka.raft.LeaderState)
+[2025-05-17 12:08:00,469] INFO [RaftManager id=1] Registered the listener org.apache.kafka.image.loader.MetadataLoader@911175127 (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,472] INFO [RaftManager id=1] Setting the next offset of org.apache.kafka.image.loader.MetadataLoader@911175127 to 0 since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,477] INFO [MetadataLoader id=1] maybePublishMetadata(LOG_DELTA): The loader is still catching up because we have loaded up to offset 0, but the high water mark is 42 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,493] INFO [RaftManager id=1] Registered the listener org.apache.kafka.controller.QuorumController$QuorumMetaLogListener@2004527313 (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,494] INFO [RaftManager id=1] Setting the next offset of org.apache.kafka.controller.QuorumController$QuorumMetaLogListener@2004527313 to 0 since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)
+[2025-05-17 12:08:00,495] INFO [MetadataLoader id=1] maybePublishMetadata(LOG_DELTA): The loader finished catching up to the current high water mark of 42 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,500] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing SnapshotGenerator with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,503] INFO [controller-1-ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2025-05-17 12:08:00,503] INFO [controller-1-ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2025-05-17 12:08:00,505] INFO [controller-1-ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2025-05-17 12:08:00,508] INFO [controller-1-ThrottledChannelReaper-ControllerMutation]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2025-05-17 12:08:00,534] INFO [ExpirationReaper-0-null]: Starting (org.apache.kafka.server.purgatory.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2025-05-17 12:08:00,628] INFO [ControllerServer id=1] Waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,629] INFO [ControllerServer id=1] Finished waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,629] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing KRaftMetadataCachePublisher with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,630] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing FeaturesPublisher with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,630] INFO [SocketServer listenerType=CONTROLLER, nodeId=1] Enabling request processing. (kafka.network.SocketServer)
+[2025-05-17 12:08:00,633] INFO [ControllerServer id=1] Loaded new metadata Features(metadataVersion=4.0-IV3, finalizedFeatures={group.version=1, transaction.version=2, metadata.version=25}, finalizedFeaturesEpoch=41). (org.apache.kafka.metadata.publisher.FeaturesPublisher)
+[2025-05-17 12:08:00,634] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing ControllerRegistrationsPublisher with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,634] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing ControllerRegistrationManager with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,641] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing DynamicConfigPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,642] INFO [ControllerRegistrationManager id=1 incarnation=3-75sZDSRxW1mJKKjVW4XQ] Found registration for U_dm2DasQhKvbKugftQg5g instead of our incarnation. (kafka.server.ControllerRegistrationManager)
+[2025-05-17 12:08:00,642] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing DynamicClientQuotaPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,645] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing DynamicTopicClusterQuotaPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,646] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing ScramPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,648] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing DelegationTokenPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,655] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing ControllerMetadataMetricsPublisher with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,657] INFO [MetadataLoader id=1] InitializeNewPublishers: initializing AclPublisher controller id=1 with a snapshot at offset 41 (org.apache.kafka.image.loader.MetadataLoader)
+[2025-05-17 12:08:00,636] ERROR Unable to start acceptor for ListenerName(CONTROLLER) (kafka.network.DataPlaneAcceptor)
+org.apache.kafka.common.KafkaException: Socket server failed to bind to 0.0.0.0:9093: Address already in use.
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:56) ~[kafka-server-4.0.0.jar:?]
+	at kafka.network.Acceptor.openServerSocket(SocketServer.scala:642) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:543) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.start(SocketServer.scala:538) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$2(SocketServer.scala:196) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:887) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2325) ~[?:?]
+	at kafka.network.SocketServer.chainAcceptorFuture$1(SocketServer.scala:189) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$4(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(ConcurrentHashMap.java:4780) ~[?:?]
+	at kafka.network.SocketServer.enableRequestProcessing(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:390) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at scala.Option.foreach(Option.scala:437) [scala-library-2.13.15.jar:?]
+	at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:95) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka$.main(Kafka.scala:97) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka.main(Kafka.scala) [kafka_2.13-4.0.0.jar:?]
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:555) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89) ~[?:?]
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:53) ~[kafka-server-4.0.0.jar:?]
+	... 18 more
+[2025-05-17 12:08:00,685] INFO [controller-1-to-controller-registration-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
+[2025-05-17 12:08:00,686] INFO [ControllerRegistrationManager id=1 incarnation=3-75sZDSRxW1mJKKjVW4XQ] initialized channel manager. (kafka.server.ControllerRegistrationManager)
+[2025-05-17 12:08:00,687] INFO [ControllerServer id=1] Waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,687] INFO [ControllerServer id=1] Finished waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,687] INFO [controller-1-to-controller-registration-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9093 (id: 1 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
+[2025-05-17 12:08:00,687] INFO [ControllerServer id=1] Waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)
+[2025-05-17 12:08:00,688] ERROR [ControllerServer id=1] Received a fatal error while waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)
+java.lang.RuntimeException: Unable to start acceptor for ListenerName(CONTROLLER)
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:558) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.start(SocketServer.scala:538) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$2(SocketServer.scala:196) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:887) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2325) ~[?:?]
+	at kafka.network.SocketServer.chainAcceptorFuture$1(SocketServer.scala:189) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$4(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(ConcurrentHashMap.java:4780) ~[?:?]
+	at kafka.network.SocketServer.enableRequestProcessing(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:390) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at scala.Option.foreach(Option.scala:437) [scala-library-2.13.15.jar:?]
+	at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:95) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka$.main(Kafka.scala:97) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka.main(Kafka.scala) [kafka_2.13-4.0.0.jar:?]
+Caused by: org.apache.kafka.common.KafkaException: Socket server failed to bind to 0.0.0.0:9093: Address already in use.
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:56) ~[kafka-server-4.0.0.jar:?]
+	at kafka.network.Acceptor.openServerSocket(SocketServer.scala:642) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:543) ~[kafka_2.13-4.0.0.jar:?]
+	... 16 more
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:555) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89) ~[?:?]
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:53) ~[kafka-server-4.0.0.jar:?]
+	at kafka.network.Acceptor.openServerSocket(SocketServer.scala:642) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:543) ~[kafka_2.13-4.0.0.jar:?]
+	... 16 more
+[2025-05-17 12:08:00,690] ERROR Encountered fatal fault: caught exception (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
+java.lang.RuntimeException: Received a fatal error while waiting for all of the SocketServer Acceptors to be started
+	at org.apache.kafka.server.util.FutureUtils.waitWithLogging(FutureUtils.java:73) ~[kafka-server-common-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:415) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:95) ~[kafka_2.13-4.0.0.jar:?]
+	at scala.Option.foreach(Option.scala:437) [scala-library-2.13.15.jar:?]
+	at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:95) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka$.main(Kafka.scala:97) [kafka_2.13-4.0.0.jar:?]
+	at kafka.Kafka.main(Kafka.scala) [kafka_2.13-4.0.0.jar:?]
+Caused by: java.lang.RuntimeException: Unable to start acceptor for ListenerName(CONTROLLER)
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:558) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.start(SocketServer.scala:538) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$2(SocketServer.scala:196) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:887) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2325) ~[?:?]
+	at kafka.network.SocketServer.chainAcceptorFuture$1(SocketServer.scala:189) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$4(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(ConcurrentHashMap.java:4780) ~[?:?]
+	at kafka.network.SocketServer.enableRequestProcessing(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:390) ~[kafka_2.13-4.0.0.jar:?]
+	... 6 more
+Caused by: org.apache.kafka.common.KafkaException: Socket server failed to bind to 0.0.0.0:9093: Address already in use.
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:56) ~[kafka-server-4.0.0.jar:?]
+	at kafka.network.Acceptor.openServerSocket(SocketServer.scala:642) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:543) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.start(SocketServer.scala:538) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$2(SocketServer.scala:196) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:887) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2325) ~[?:?]
+	at kafka.network.SocketServer.chainAcceptorFuture$1(SocketServer.scala:189) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$4(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(ConcurrentHashMap.java:4780) ~[?:?]
+	at kafka.network.SocketServer.enableRequestProcessing(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:390) ~[kafka_2.13-4.0.0.jar:?]
+	... 6 more
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:555) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294) ~[?:?]
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89) ~[?:?]
+	at org.apache.kafka.server.ServerSocketFactory$KafkaServerSocketFactory.openServerSocket(ServerSocketFactory.java:53) ~[kafka-server-4.0.0.jar:?]
+	at kafka.network.Acceptor.openServerSocket(SocketServer.scala:642) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.liftedTree1$1(SocketServer.scala:543) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.Acceptor.start(SocketServer.scala:538) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$2(SocketServer.scala:196) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:887) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2325) ~[?:?]
+	at kafka.network.SocketServer.chainAcceptorFuture$1(SocketServer.scala:189) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.network.SocketServer.$anonfun$enableRequestProcessing$4(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(ConcurrentHashMap.java:4780) ~[?:?]
+	at kafka.network.SocketServer.enableRequestProcessing(SocketServer.scala:202) ~[kafka_2.13-4.0.0.jar:?]
+	at kafka.server.ControllerServer.startup(ControllerServer.scala:390) ~[kafka_2.13-4.0.0.jar:?]
+	... 6 more
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        [2025-05-17 12:08:05,608] INFO [NodeToControllerChannelManager id=1 name=heartbeat] Disconnecting from node 1 due to request timeout. (org.apache.kafka.clients.NetworkClient)
+[2025-05-17 12:08:05,610] INFO [NodeToControllerChannelManager id=1 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 12 due to node 1 being disconnected (elapsed time since creation: 4503ms, elapsed time since send: 4503ms, throttle time: 0ms, request timeout: 4500ms) (org.apache.kafka.clients.NetworkClient)
+[2025-05-17 12:08:05,611] INFO [broker-1-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node localhost:9093 (id: 1 rack: null isFenced: false) (kafka.server.NodeToControllerRequestThread)
+[2025-05-17 12:08:05,611] INFO [BrokerLifecycleManager id=1] Unable to send a heartbeat because the RPC got timed out before it could be sent. (kafka.server.BrokerLifecycleManager)
+[2025-05-17 12:08:08,294] ERROR Encountered fatal fault: Unexpected error in raft IO thread (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
 org.apache.kafka.common.errors.CorruptRecordException: Unexpected EOF while attempting to read the next batch
-Caused by: java.io.EOFException: Failed to read `log header` from file channel `sun.nio.ch.FileChannelImpl@75eee07f`. Expected to read 17 bytes, but reached end of file after reading 0 bytes. Started read from position 215183.
+Caused by: java.io.EOFException: Failed to read `log header` from file channel `sun.nio.ch.FileChannelImpl@7257d9c`. Expected to read 17 bytes, but reached end of file after reading 0 bytes. Started read from position 3230.
 	at org.apache.kafka.common.utils.Utils.readFullyOrFail(Utils.java:1233) ~[kafka-clients-4.0.0.jar:?]
 	at org.apache.kafka.common.record.FileLogInputStream.nextBatch(FileLogInputStream.java:69) ~[kafka-clients-4.0.0.jar:?]
 	at org.apache.kafka.common.record.FileLogInputStream.nextBatch(FileLogInputStream.java:42) ~[kafka-clients-4.0.0.jar:?]

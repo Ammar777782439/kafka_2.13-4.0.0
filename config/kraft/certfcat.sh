@@ -1,16 +1,17 @@
 #!/bin/bash
 set -e
 
-# ====== إعدادات قابلة للتعديل ======
+# ====== Adjustable Settings ======
+
 PASSWORD="kafkasslpass"
 VALIDITY_DAYS=365
-SAN_HOSTS="dns:localhost,ip:127.0.0.1"  # عدل هذا حسب شبكتك (مثلاً: dns:localhost,ip:192.168.1.100)
+SAN_HOSTS="dns:localhost,ip:172.23.38.230"  # Modify this according to your network (eg: dns:localhost,ip:192.168.1.100)
 BASE_DIR="./ssl"
 # ===================================
 
 mkdir -p $BASE_DIR/ca $BASE_DIR/server $BASE_DIR/client
 
-echo "[+] إنشاء شهادة CA"
+echo "[+] Create CA certificate"
 openssl req -new -x509 \
   -keyout $BASE_DIR/ca/ca-key \
   -out $BASE_DIR/ca/ca-cert \
@@ -18,7 +19,8 @@ openssl req -new -x509 \
   -subj "/CN=ca.kafka" \
   -passout pass:$PASSWORD
 
-echo "[+] إنشاء keystore للسيرفر"
+echo "[+] Create keystore for server"
+
 keytool -keystore $BASE_DIR/server/kafka.server.keystore.jks \
   -alias localhost \
   -validity $VALIDITY_DAYS \
@@ -29,7 +31,8 @@ keytool -keystore $BASE_DIR/server/kafka.server.keystore.jks \
   -dname "CN=kafka, OU=None, O=None, L=None, S=None, C=None" \
   -ext san=${SAN_HOSTS}
 
-echo "[+] إنشاء keystore للعميل"
+echo "[+] Create keystore for client"
+
 keytool -keystore $BASE_DIR/client/kafka.client.keystore.jks \
   -alias localhost \
   -validity $VALIDITY_DAYS \
@@ -39,7 +42,7 @@ keytool -keystore $BASE_DIR/client/kafka.client.keystore.jks \
   -keypass $PASSWORD \
   -dname "CN=client, OU=None, O=None, L=None, S=None, C=None"
 
-echo "[+] توقيع شهادة السيرفر"
+echo "[+] Server Certificate Signature"
 keytool -keystore $BASE_DIR/server/kafka.server.keystore.jks \
   -alias localhost \
   -certreq \
@@ -55,7 +58,7 @@ openssl x509 -req \
   -CAcreateserial \
   -passin pass:$PASSWORD
 
-echo "[+] توقيع شهادة العميل"
+echo "[+] Client Certificate Signature"
 keytool -keystore $BASE_DIR/client/kafka.client.keystore.jks \
   -alias localhost \
   -certreq \
@@ -71,7 +74,7 @@ openssl x509 -req \
   -CAcreateserial \
   -passin pass:$PASSWORD
 
-echo "[+] استيراد شهادة CA في keystores"
+echo "[+] Import CA certificate into keystores"
 keytool -keystore $BASE_DIR/server/kafka.server.keystore.jks \
   -alias CARoot \
   -import \
@@ -86,7 +89,7 @@ keytool -keystore $BASE_DIR/client/kafka.client.keystore.jks \
   -storepass $PASSWORD \
   -noprompt
 
-echo "[+] استيراد الشهادات الموقعة في keystores"
+echo "[+] Import signed certificates into keystores"
 keytool -keystore $BASE_DIR/server/kafka.server.keystore.jks \
   -alias localhost \
   -import \
@@ -101,7 +104,7 @@ keytool -keystore $BASE_DIR/client/kafka.client.keystore.jks \
   -storepass $PASSWORD \
   -noprompt
 
-echo "[+] إنشاء truststore واستيراد شهادة CA"
+echo "[+] Create truststore and import CA certificate"
 keytool -keystore $BASE_DIR/server/kafka.server.truststore.jks \
   -alias CARoot \
   -import \
@@ -116,4 +119,4 @@ keytool -keystore $BASE_DIR/client/kafka.client.truststore.jks \
   -storepass $PASSWORD \
   -noprompt
 
-echo "[✓] تم إنشاء الشهادات بنجاح!"
+echo "[✓] Certificates created successfully!"
