@@ -215,3 +215,5 @@ ssl_config = {
 
 - Verify paths in the Python config file.
 - Make sure the password in the config matches the one used during certificate creation.
+
+- ![image](https://github.com/user-attachments/assets/1ec4965f-6a67-4d41-aaf2-df26c87e67b0)
