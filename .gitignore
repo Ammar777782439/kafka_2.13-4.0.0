@@ -1,0 +1,66 @@
+# Kafka data and logs
+logs/
+kafka-logs/
+/data/
+/kafka_data/
+*/kafka_data/
+*/logs/
+*.log
+
+# SSL certificates and keys
+*.jks
+*.p12
+*.pem
+*.key
+*.crt
+*.cert
+*.der
+*.csr
+*.srl
+config/kraft/ssl/
+
+# Sensitive information
+**/passwords.txt
+**/credentials.txt
+**/secrets.txt
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+
+# Compiled class files
+*.class
+target/
+build/
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Exclude specific configuration files that might contain sensitive data
+# Uncomment if needed
+# config/kraft/server-*.properties
+
+# Include the certificate generation script
+# !config/kraft/certfcat.sh
