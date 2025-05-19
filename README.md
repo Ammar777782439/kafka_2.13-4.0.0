@@ -215,3 +215,13 @@ ssl_config = {
 
 - Verify paths in the Python config file.
 - Make sure the password in the config matches the one used during certificate creation.
+
+- ![image](https://github.com/user-attachments/assets/1ec4965f-6a67-4d41-aaf2-df26c87e67b0)
+
+- ![image](https://github.com/user-attachments/assets/f09468da-12f7-410d-9cd5-bcf8b44f4c52)
+
+- server kafka
+
+- ![image](https://github.com/user-attachments/assets/88d22c4a-a64f-4ac1-8eb5-b171e097fc12)
+
+
