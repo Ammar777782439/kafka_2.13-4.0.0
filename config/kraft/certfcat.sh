@@ -9,7 +9,7 @@ SAN_HOSTS_IP="127.0.0.1"
 BASE_DIR="./ssl"
 # =================================
 
-# احرص على اقتباس المتغيرات التي تمثل مسارات
+# Be sure to quote variables that represent paths.
 mkdir -p "$BASE_DIR/ca" "$BASE_DIR/server" "$BASE_DIR/client" "$BASE_DIR/pem"
 
 
@@ -21,7 +21,7 @@ openssl req -new -x509 \
   -subj "/C=US/ST=State/L=City/O=MyOrg/OU=MyUnit/CN=ca.kafka" \
   -passout pass:$PASSWORD
 
-  
+
 echo "[+] Create keystore for server (keytool genkeypair)"
 keytool -genkeypair \
   -keystore "$BASE_DIR/server/kafka.server.keystore.jks" \
