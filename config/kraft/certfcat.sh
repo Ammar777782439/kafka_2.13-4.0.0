@@ -5,7 +5,7 @@ set -e
 PASSWORD="kafkasslpass"
 VALIDITY_DAYS=365
 SAN_HOSTS_DNS="localhost"
-SAN_HOSTS_IP="127.0.0.1"
+SAN_HOSTS_IP="172.23.38.230"
 BASE_DIR="./ssl"
 # =================================
 
