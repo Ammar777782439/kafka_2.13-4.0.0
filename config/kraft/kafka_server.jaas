@@ -1,7 +1,19 @@
 KafkaServer {
-  org.apache.kafka.common.security.plain.PlainLoginModule required
-  username="admin"
-  password="admin-secret"
-  user_admin="admin-secret"
-  user_client1="client1-secret";
+    org.apache.kafka.common.security.plain.PlainLoginModule required
+    username="admin"
+    password="admin-secret"
+    user_admin="admin-secret"
+    user_user1="user1-secret"
+    user_ammar-client="ammar-client"
+    user_user2_bajash="user2_bajash"
+    user_new_user="new_password"
+    user_controller-user="controller-password";
 };
+KafkaController {
+    org.apache.kafka.common.security.plain.PlainLoginModule required
+    username="controller-user"
+    password="controller-password"
+    user_controller-user="controller-password";
+};
+
+# export KAFKA_OPTS="-Djava.security.auth.login.config=/path/config/kraft/kafka_server_jaas.conf"
