@@ -4,8 +4,8 @@ set -e
 # ====== Adjustable Settings ======
 PASSWORD="kafkasslpass"
 VALIDITY_DAYS=365
-SAN_HOSTS_DNS="localhost"
-SAN_HOSTS_IP="127.0.0.1"
+SAN_HOSTS_DNS="edg"
+SAN_HOSTS_IP="192.168.168.44"
 BASE_DIR="./ssl"
 # =================================
 
