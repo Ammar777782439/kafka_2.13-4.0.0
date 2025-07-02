@@ -1,0 +1,249 @@
+#!/bin/bash
+# Kafka Cluster Management Script with Performance Reporting
+# Version 3.0 - Enhanced Monitoring
+
+KAFKA_HOME="/opt/kafka"
+CONFIG_DIR="$KAFKA_HOME/config/kraft"
+LOG_DIR="$KAFKA_HOME/logs"
+REPORT_DIR="$KAFKA_HOME/reports"
+NODES=("server-0" "server-1" "server-2")
+HEAP_OPTS="-Xmx2G -Xms2G"
+JAAS_FILE="$CONFIG_DIR/kafka_server_jaas.conf"
+BOOTSTRAP_SERVER="192.168.168.44:9094"
+CLIENT_CONFIG="$CONFIG_DIR/client-sasl-ssl-admin.properties"
+
+start_node() {
+    local config=$1
+    local config_file="$CONFIG_DIR/$config.properties"
+    local node_id=$(grep "node.id" "$config_file" | cut -d'=' -f2)
+    
+    # Check if already running
+    if ps aux | grep -v grep | grep -q "$config_file"; then
+        echo "ℹ️ Node $node_id is already running"
+        return
+    fi
+    
+    echo "Starting Kafka node $node_id with heap: $HEAP_OPTS and JAAS: $JAAS_FILE..."
+    
+    # Export environment variables
+    export KAFKA_OPTS="-Djava.security.auth.login.config=$JAAS_FILE"
+    export KAFKA_HEAP_OPTS="$HEAP_OPTS"
+    
+    nohup "$KAFKA_HOME"/bin/kafka-server-start.sh "$config_file" > "$LOG_DIR/kafka-$node_id.log" 2>&1 &
+    local pid=$!
+    
+    # Unset environment variables
+    unset KAFKA_OPTS
+    unset KAFKA_HEAP_OPTS
+    
+    sleep 5  # Give it time to initialize
+    
+    if ps -p "$pid" > /dev/null; then
+        echo "✅ Node $node_id started successfully | PID: $pid"
+        echo "$pid" > "$LOG_DIR/kafka-$node_id.pid"
+    else
+        echo "❌ Failed to start node $node_id. Check logs: $LOG_DIR/kafka-$node_id.log"
+        echo "=== Last 5 lines of log ==="
+        tail -n 5 "$LOG_DIR/kafka-$node_id.log"
+        echo "==========================="
+    fi
+}
+
+stop_node() {
+    local config=$1
+    local config_file="$CONFIG_DIR/$config.properties"
+    local node_id=$(grep "node.id" "$config_file" | cut -d'=' -f2)
+    
+    # Find PID by process command
+    local pid=$(ps aux | grep "$config_file" | grep -v grep | awk '{print $2}')
+    
+    if [ -z "$pid" ]; then
+        echo "ℹ️ Node $node_id is not running"
+        return
+    fi
+    
+    echo "Stopping Kafka node $node_id (PID: $pid)..."
+    kill -SIGTERM "$pid"
+    
+    # Wait for process termination
+    local timeout=30
+    while kill -0 "$pid" 2>/dev/null; do
+        sleep 1
+        timeout=$((timeout-1))
+        if [ "$timeout" -le 0 ]; then
+            echo "⚠️ Node $node_id did not stop gracefully. Forcing kill..."
+            kill -9 "$pid"
+            break
+        fi
+    done
+    
+    local pid_file="$LOG_DIR/kafka-$node_id.pid"
+    [ -f "$pid_file" ] && rm -f "$pid_file"
+    echo "✅ Node $node_id stopped"
+}
+
+force_stop() {
+    echo "Force stopping all Kafka processes..."
+    pkill -f 'kafka\.Kafka'
+    rm -f "$LOG_DIR"/kafka-*.pid
+    echo "✅ All Kafka processes stopped"
+}
+
+cluster_status() {
+    echo "Kafka Cluster Status"
+    echo "===================="
+    echo "Node ID | Status     | PID  | Ports"
+    echo "----------------------------------"
+    
+    for node in "${NODES[@]}"; do
+        local config_file="$CONFIG_DIR/$node.properties"
+        local node_id=$(grep "node.id" "$config_file" | cut -d'=' -f2)
+        local listeners=$(grep "listeners" "$config_file" | cut -d'=' -f2)
+        
+        # Extract ports
+        local ports=$(echo "$listeners" | grep -oP '\d{4,5}' | tr '\n' ',' | sed 's/,$//')
+        
+        # Find PID
+        local pid=$(ps aux | grep "$config_file" | grep -v grep | awk '{print $2}')
+        local status="⚪ STOPPED"
+        
+        if [ -n "$pid" ]; then
+            status="🟢 RUNNING"
+        fi
+        
+        printf "%-7s | %-10s | %-5s | %s\n" "$node_id" "$status" "${pid:-N/A}" "$ports"
+    done
+    
+    echo ""
+    echo "Cluster Health:"
+    "$KAFKA_HOME"/bin/kafka-broker-api-versions.sh \
+        --bootstrap-server "$BOOTSTRAP_SERVER" \
+        --command-config "$CLIENT_CONFIG" 2>/dev/null | grep "brokers"
+}
+
+check_logs() {
+    local node_id=$1
+    if [ -z "$node_id" ]; then
+        echo "Usage: $0 logs <node-id>"
+        return 1
+    fi
+    
+    if [ -f "$LOG_DIR/kafka-$node_id.log" ]; then
+        tail -f "$LOG_DIR/kafka-$node_id.log"
+    else
+        echo "Log file not found: $LOG_DIR/kafka-$node_id.log"
+    fi
+}
+
+generate_performance_report() {
+    mkdir -p "$REPORT_DIR"
+    local report_date=$(date +%Y%m%d_%H%M%S)
+    local report_file="$REPORT_DIR/kafka-report-$report_date.txt"
+    
+    echo "Generating Kafka performance report..."
+    echo "Kafka Performance Report - $report_date" > "$report_file"
+    echo "=======================================" >> "$report_file"
+    
+    # Cluster summary
+    echo "" >> "$report_file"
+    echo "Cluster Summary" >> "$report_file"
+    echo "---------------" >> "$report_file"
+    "$KAFKA_HOME"/bin/kafka-cluster.sh --bootstrap-server "$BOOTSTRAP_SERVER" \
+        --command-config "$CLIENT_CONFIG" describe >> "$report_file" 2>/dev/null
+    
+    # Broker status
+    echo "" >> "$report_file"
+    echo "Broker Status" >> "$report_file"
+    echo "-------------" >> "$report_file"
+    for node in "${NODES[@]}"; do
+        local config_file="$CONFIG_DIR/$node.properties"
+        local node_id=$(grep "node.id" "$config_file" | cut -d'=' -f2)
+        local log_dir=$(grep "log.dirs" "$config_file" | cut -d'=' -f2 | tr -d '[:space:]')
+        
+        # حل المشكلة: استخدام المسار مباشرة بدلاً من المتغير
+        if [ "$node_id" == "0" ]; then
+            log_dir="/opt/kafka/logs/kafka-data-0"
+        elif [ "$node_id" == "1" ]; then
+            log_dir="/opt/kafka/logs/kafka-data-1"
+        elif [ "$node_id" == "2" ]; then
+            log_dir="/opt/kafka/logs/kafka-data-2"
+        fi
+        
+        local disk_usage="N/A"
+        if [ -d "$log_dir" ]; then
+            disk_usage=$(du -sh "$log_dir" 2>/dev/null | awk '{print $1}')
+        else
+            disk_usage="Directory missing!"
+        fi
+        
+        echo "Node $node_id: Disk Usage: $disk_usage" >> "$report_file"
+    done
+    
+    # Topic analysis
+    echo "" >> "$report_file"
+    echo "Topic Analysis" >> "$report_file"
+    echo "--------------" >> "$report_file"
+    "$KAFKA_HOME"/bin/kafka-topics.sh --bootstrap-server "$BOOTSTRAP_SERVER" \
+        --command-config "$CLIENT_CONFIG" --describe >> "$report_file" 2>/dev/null
+    
+    # Consumer lag
+    echo "" >> "$report_file"
+    echo "Consumer Lag" >> "$report_file"
+    echo "------------" >> "$report_file"
+    "$KAFKA_HOME"/bin/kafka-consumer-groups.sh --bootstrap-server "$BOOTSTRAP_SERVER" \
+        --command-config "$CLIENT_CONFIG" --all-groups --describe >> "$report_file" 2>/dev/null
+    
+    # System health
+    echo "" >> "$report_file"
+    echo "System Health" >> "$report_file"
+    echo "-------------" >> "$report_file"
+    echo "CPU Usage: $(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')" >> "$report_file"
+    echo "Memory Usage: $(free -m | awk '/Mem:/ {printf "%.1f%%", $3/$2*100}')" >> "$report_file"
+    echo "Disk Usage: $(df -h / | awk 'NR==2 {print $5}')" >> "$report_file"
+    
+    echo "✅ Performance report generated: $report_file"
+    echo "View with: cat $report_file | less"
+    find "$REPORT_DIR" -name "kafka-report-*.txt" -mtime +30 -exec rm {} \;
+}
+
+case "$1" in
+    start)
+        for node in "${NODES[@]}"; do
+            start_node "$node"
+        done
+        ;;
+    stop)
+        for node in "${NODES[@]}"; do
+            stop_node "$node"
+        done
+        ;;
+    force-stop)
+        force_stop
+        ;;
+    restart)
+        $0 stop
+        sleep 5
+        $0 start
+        ;;
+    status)
+        cluster_status
+        ;;
+    logs)
+        check_logs "$2"
+        ;;
+    report)
+        generate_performance_report
+        ;;
+    *)
+        echo "Kafka Cluster Management Script"
+        echo "Usage: $0 {start|stop|force-stop|restart|status|logs <node-id>|report}"
+        echo ""
+        echo "Configured nodes:"
+        for node in "${NODES[@]}"; do
+            local config_file="$CONFIG_DIR/$node.properties"
+            local node_id=$(grep "node.id" "$config_file" | cut -d'=' -f2)
+            local listeners=$(grep "listeners" "$config_file" | cut -d'=' -f2)
+            echo "- Node $node_id: $listeners"
+        done
+        exit 1
+esac
