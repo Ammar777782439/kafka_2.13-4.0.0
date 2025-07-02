@@ -1,227 +1,136 @@
-# Apache Kafka Setup and SSL Configuration Guide
+بالتأكيد، لقد قمت بإعادة ترتيب وتنظيم الدليل ليكون دليلاً متكاملاً ومرتباً خطوة بخطوة لشخص يقوم بتشغيل بيئة كافكا هذه لأول مرة على جهازه.
 
-This guide explains how to install and run Apache Kafka with SSL support for secure encrypted communication.
+-----
 
-## Prerequisites
+## 📜 دليل التشغيل خطوة بخطوة لإعداد Kafka لأول مرة
 
-- Linux OS or Windows with WSL
-- Java 11 or higher
-- At least 1 GB of free disk space
-- Python 3.x (for clients)
-- `confluent-kafka` Python library (for clients)
+مرحباً بك\! هذا الدليل سيأخذك في رحلة إعداد وتشغيل كلاستر كافكا مؤمَّن بالكامل باستخدام نمط KRaft (بدون ZooKeeper). جميع ملفات الإعداد والسكربتات اللازمة موجودة وجاهزة. اتبع الخطوات التالية بالترتيب.
 
-## 1. Kafka Installation
+### **الخطوة 1: توليد شهادات الأمان (SSL Certificates)** 🛡️
 
-### Download and Extract Kafka
+هذه هي الخطوة الأولى والأساسية لتأمين جميع الاتصالات داخل الكلاستر ومع العملاء.
 
-```bash
-# Download Kafka
-wget https://downloads.apache.org/kafka/4.0.0/kafka_2.13-4.0.0.tgz
+1.  افتح نافذة الأوامر (Terminal).
+2.  انتقل إلى مجلد الإعدادات:
+    ```bash
+    cd /path/to/your/kafka/config/kraft
+    ```
+3.  قم بتشغيل سكربت توليد الشهادات:
+    ```bash
+    ./certfcat.sh
+    ```
+    سيقوم هذا السكربت بإنشاء مجلد `ssl/` جديد يحتوي على جميع الشهادات والمفاتيح اللازمة للخوادم والعملاء.
 
-# Extract the archive
-tar -xzf kafka_2.13-4.0.0.tgz
+-----
 
-# Navigate to the Kafka directory
-cd kafka_2.13-4.0.0
-```
+### **الخطوة 2: تهيئة الكلاستر لأول مرة (One-Time Setup)** ⚙️
 
-## 2. SSL Certificate Setup
+هذه العملية تُنفذ مرة واحدة فقط عند إنشاء الكلاستر لتهيئة مساحات التخزين الخاصة بـ KRaft.
 
-### Run the Certificate Generation Script
+1.  **توليد معرّف فريد للكلاستر (Cluster ID):**
 
-```bash
-# Navigate to the config directory
-cd config/kraft
+    ```bash
+    CLUSTER_ID=$(bin/kafka-storage.sh random-uuid)
+    echo "Cluster ID: $CLUSTER_ID"
+    ```
 
-# Edit the certfcat.sh script to set your Kafka server's IP address in SAN_HOSTS
-nano certfcat.sh
+    احتفظ بهذا المعرّف، ستحتاجه في النقطة التالية.
 
-# Run the certificate script
-./certfcat.sh
-```
+2.  **تهيئة مجلدات التخزين (Format Storage):**
+    استخدم المعرّف الذي أنشأته لتهيئة كل خادم في الكلاستر.
 
-> **Important:** Make sure the `SAN_HOSTS` variable in `certfcat.sh` includes your IP address.
-> Example: `SAN_HOSTS="dns:localhost,ip:192.168.1.100"`
+    ```bash
+    # تهيئة الخادم الأول
+    bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server-0.properties
 
-### Certificate Locations
+    # تهيئة الخادم الثاني
+    bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server-1.properties
 
-Certificates will be generated in these directories:
+    # تهيئة الخادم الثالث
+    bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server-2.properties
+    ```
 
-- `ssl/ca`: CA certificates
-- `ssl/server`: Server certificates
-- `ssl/client`: Client certificates
-- `ssl/pem`: PEM-formatted certificates (for Python use)
+-----
 
-## 3. Kafka Configuration and Startup
+### **الخطوة 3: تشغيل خوادم كافكا (Start Kafka Servers)** 🚀
 
-### Format Kafka Storage
+أنت الآن جاهز لبدء تشغيل الكلاستر.
 
-```bash
-./bin/kafka-storage.sh format -t $(cat config/kraft/server-1.properties | grep node.id | cut -d= -f2)-$(date +%s) -c ./config/kraft/server-1.properties
-```
+1.  **تصدير متغير البيئة الخاص بالمصادقة (JAAS):** هذا المتغير يخبر كافكا بمكان ملف أسماء المستخدمين وكلمات المرور.
+    ```bash
+    export KAFKA_OPTS="-Djava.security.auth.login.config=config/kraft/kafka_server_jaas.conf"
+    ```
+2.  **تشغيل الخوادم:** لديك طريقتان:
+      * **الطريقة السهلة (موصى بها):** باستخدام سكربت الإدارة المرفق.
+        ```bash
+        bin/kafka-manager start
+        ```
+      * **الطريقة اليدوية:**
+        ```bash
+        bin/kafka-server-start.sh -daemon config/kraft/server-0.properties
+        bin/kafka-server-start.sh -daemon config/kraft/server-1.properties
+        bin/kafka-server-start.sh -daemon config/kraft/server-2.properties
+        ```
+    **نصيحة:** يمكنك استخدام الأمر `bin/kafka-manager status` للتأكد من أن جميع الخوادم تعمل بنجاح.
 
-### Start Kafka Server
+-----
 
-```bash
-bin/kafka-server-start.sh config/kraft/server-1.properties
-```
+### **الخطوة 4: إنشاء موضوع وتعيين الصلاحيات (Topics & ACLs)** 🔐
 
-### Check Kafka Status
+الآن بعد أن أصبح الكلاستر يعمل، سنقوم بإنشاء موضوع (Topic) وتحديد من يمكنه استخدامه. سنستخدم حساب **المدير (`admin`)** للقيام بهذه المهام الإدارية.
 
-```bash
-# Kafka processes
-ps aux | grep kafka
+1.  **إنشاء موضوع جديد:**
 
-# Kafka logs
-tail -f logs/server.log
-```
+    ```bash
+    bin/kafka-topics.sh --create --topic secure-topic --partitions 1 --replication-factor 2 --bootstrap-server 192.168.168.44:9094 --command-config config/kraft/admin-sasl-ssl.properties
+    ```
 
-## 4. Working with Kafka Topics
+2.  **منح صلاحيات الوصول للمستخدم `user2_bajash`:**
+    سنمنح هذا المستخدم صلاحية الكتابة (`WRITE`) والقراءة (`READ`) على الموضوع الذي أنشأناه.
 
-### Create a Topic
+    ```bash
+    bin/kafka-acls.sh --bootstrap-server 192.168.168.44:9094 --command-config config/kraft/admin-sasl-ssl.properties --add --allow-principal User:user2_bajash --operation WRITE --operation READ --topic secure-topic
+    ```
 
-```bash
-./bin/kafka-topics.sh --create --topic ssl-test-topic --bootstrap-server localhost:9094 --command-config ./config/kraft/client-ssl.properties --partitions 3 --replication-factor 1
-```
+-----
 
-### List Topics
+### **الخطوة 5: اختبار الإنتاج والاستهلاك (Test the Setup)** ✅
 
-```bash
-./bin/kafka-topics.sh --list --bootstrap-server localhost:9094 --command-config ./config/kraft/client-ssl.properties
-```
+هذه هي لحظة الحقيقة\! سنتحقق من أن المستخدم `user2_bajash` يمكنه إرسال واستقبال الرسائل باستخدام الصلاحيات التي مُنحت له.
 
-### Send Messages to Topic
-
-```bash
-./bin/kafka-console-producer.sh --topic ssl-test-topic --bootstrap-server localhost:9094 --producer.config ./config/kraft/client-ssl.properties
-```
-
-### Consume Messages from Topic
-
-```bash
-./bin/kafka-console-consumer.sh --topic ssl-test-topic --from-beginning --bootstrap-server localhost:9094 --consumer.config ./config/kraft/client-ssl.properties
-```
-
-## 5. Using Kafka with Python
-
-### Copy PEM Certificates to Python Project
-
-```bash
-cp config/kraft/ssl/pem/ca.pem /path/to/python/project/
-cp config/kraft/ssl/pem/client.pem /path/to/python/project/
-cp config/kraft/ssl/pem/client.key /path/to/python/project/
-cp config/kraft/ssl/pem/kafka_ssl_config.py /path/to/python/project/
-```
-
-### Python Producer Example
-
-```python
-from confluent_kafka import Producer
-from kafka_ssl_config import ssl_config
-
-producer = Producer(ssl_config)
-
-def delivery_report(err, msg):
-    if err is not None:
-        print(f"Delivery failed: {err}")
-    else:
-        print(f"Message delivered to {msg.topic()} [{msg.partition()}]")
-
-producer.produce('ssl-test-topic', key='key', value='message value', callback=delivery_report)
-producer.flush()
-```
-
-### Python Consumer Example
-
-```python
-from confluent_kafka import Consumer
-from kafka_ssl_config import ssl_config
-
-consumer_config = ssl_config.copy()
-consumer_config.update({
-    'group.id': 'my-group',
-    'auto.offset.reset': 'earliest'
-})
-
-consumer = Consumer(consumer_config)
-consumer.subscribe(['ssl-test-topic'])
-
-try:
-    while True:
-        msg = consumer.poll(1.0)
-        if msg is None:
-            continue
-        if msg.error():
-            print(f"Error: {msg.error()}")
-            continue
-        print(f"Received message: {msg.value().decode('utf-8')}")
-except KeyboardInterrupt:
-    pass
-finally:
-    consumer.close()
-```
-
-## 6. Using Kafka on Windows
-
-### Copy PEM Certificates to Windows
-
-```bash
-cp config/kraft/ssl/pem/ca.pem /mnt/c/Users/YourUsername/path/to/project/
-cp config/kraft/ssl/pem/client.pem /mnt/c/Users/YourUsername/path/to/project/
-cp config/kraft/ssl/pem/client.key /mnt/c/Users/YourUsername/path/to/project/
-cp config/kraft/ssl/pem/kafka_ssl_config_windows.py /mnt/c/Users/YourUsername/path/to/project/
-```
-
-### Update Windows Paths
-
-Edit `kafka_ssl_config_windows.py` to use Windows paths:
-
-```python
-ssl_config = {
-    'bootstrap.servers': 'YOUR_IP:9094',
-    'security.protocol': 'SSL',
-    'ssl.ca.location': 'C:/path/to/ca.pem',
-    'ssl.certificate.location': 'C:/path/to/client.pem',
-    'ssl.key.location': 'C:/path/to/client.key',
-    'ssl.key.password': 'kafkasslpass'
-}
-```
-
-## 7. Stop Kafka Server
-
-```bash
-./bin/kafka-server-stop.sh
-```
-
-## Troubleshooting
-
-### Issue: Cannot connect via SSL
-
-1. Check if Kafka is running:
-   ```bash
-   ps aux | grep kafka
-   ```
-2. Check Kafka logs:
-   ```bash
-   tail -f logs/server.log
-   ```
-3. Ensure port 9094 is open:
-   ```bash
-   netstat -tulpn | grep 9094
-   ```
-4. Check SSL config in `server-1.properties`
-
-### Issue: SSL certificate error in Python
-
-- Verify paths in the Python config file.
-- Make sure the password in the config matches the one used during certificate creation.
-
-- ![image](https://github.com/user-attachments/assets/1ec4965f-6a67-4d41-aaf2-df26c87e67b0)
-
-- ![image](https://github.com/user-attachments/assets/f09468da-12f7-410d-9cd5-bcf8b44f4c52)
-
-- server kafka
-
-- ![image](https://github.com/user-attachments/assets/88d22c4a-a64f-4ac1-8eb5-b171e097fc12)
-
-
+1.  **إرسال الرسائل (Producer):**
+    افتح نافذة أوامر جديدة وقم بتشغيل الأمر التالي. سيسمح لك بكتابة رسائل مباشرة من سطر الأوامر.
+
+    ```bash
+    # استخدم ملف إعدادات العميل العادي client-ssl.properties
+    bin/kafka-console-producer.sh --broker-list 192.168.168.44:9094 --topic secure-topic --producer.config config/kraft/client-ssl.properties
+    ```
+
+    اكتب بعض الرسائل مثل "Hello Kafka" واضغط Enter. اضغط `Ctrl+C` للخروج عند الانتهاء.
+
+2.  **استقبال الرسائل (Consumer):**
+    افتح نافذة أوامر **ثالثة** وقم بتشغيل أمر المستهلك.
+
+    ```bash
+    # استخدم نفس ملف إعدادات العميل
+    bin/kafka-console-consumer.sh --bootstrap-server 192.168.168.44:9094 --topic secure-topic --from-beginning --consumer.config config/kraft/client-ssl.properties
+    ```
+
+    إذا ظهرت الرسائل التي أرسلتها في نافذة المستهلك، فهذا يعني أن الكلاستر يعمل بشكل مثالي مع نظام الأمان والصلاحيات. **تهانينا\!** 🎉
+
+-----
+
+### **أوامر إضافية للإدارة**
+
+  * **لإيقاف جميع الخوادم:**
+    ```bash
+    bin/kafka-manager stop
+    ```
+  * **لعرض جميع المواضيع:**
+    ```bash
+    bin/kafka-topics.sh --list --bootstrap-server 192.168.168.44:9094 --command-config config/kraft/admin-sasl-ssl.properties
+    ```
+  * **لعرض الصلاحيات على موضوع معين:**
+    ```bash
+    bin/kafka-acls.sh --bootstrap-server 192.168.168.44:9094 --command-config config/kraft/admin-sasl-ssl.properties --list --topic secure-topic
+    ```
