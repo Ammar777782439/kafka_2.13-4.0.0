@@ -238,7 +238,7 @@
     <!-- end list -->
 
     ```bash
-    bin/kafka-metadata-quorum.sh --bootstrap-server 192.168.168.44:9094 describe --status
+    bin/kafka-metadata-quorum.sh --bootstrap-server 192.168.168.44:9094 --command-config config/kraft/admin-sasl-ssl.properties describe --status
     ```
 
       * **ماذا تبحث عنه؟** تأكد من وجود قائد (`Leader`) واحد وأن جميع العقد الأخرى تظهر كـ `Follower`.
