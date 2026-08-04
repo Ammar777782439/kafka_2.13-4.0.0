@@ -195,7 +195,8 @@ controller.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginMod
 
 # Authorizer & Super Users
 authorizer.class.name=org.apache.kafka.metadata.authorizer.StandardAuthorizer
-super.users=User:admin;User:ANONYMOUS;User:controller;User:ammar
+allow.everyone.if.no.acl.found=true
+super.users=User:admin;User:ANONYMOUS;User:controller
 
 ############################# Log Storage Basics #############################
 log.dirs=/opt/kafka/logs/kafka-data-0
