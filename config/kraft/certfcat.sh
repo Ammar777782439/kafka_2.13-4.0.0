@@ -3,9 +3,9 @@ set -e
 
 # ====== Adjustable Settings ======
 PASSWORD="kafkasslpass"
-VALIDITY_DAYS=365
+VALIDITY_DAYS=3650
 SAN_HOSTS_DNS="edg"
-SAN_HOSTS_IP="192.168.168.44"
+SAN_HOSTS_IP="192..168.168.25"
 BASE_DIR="./ssl"
 # =================================
 
@@ -50,8 +50,10 @@ extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = $SAN_HOSTS_DNS
-IP.1 = $SAN_HOSTS_IP
+DNS.1 = localhost
+DNS.2 = edg
+IP.1 = 192.168.168.25
+IP.2 = 127.0.0.1
 EOF
 
 echo "[+] Generate CSR from keystore"
