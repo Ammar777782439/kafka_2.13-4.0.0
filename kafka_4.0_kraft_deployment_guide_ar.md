@@ -307,6 +307,31 @@ ssl.truststore.password=kafkasslpass
   --entity-type users --entity-name app_user
 ```
 
+### ج. منح الصلاحيات الدقيقة للمستخدم عبر ACLs (بدون جعله Super User):
+بناءً على مبدأ أقل الصلاحيات (Least Privilege)، يتم منح المستخدم العادي أذونات محددة للتوبيكات والـ Consumer Groups دون إضافته كـ Super User:
+
+```bash
+# 1. إعطاء المستخدم صلاحية الإرسال (Producer - Write & Describe) على توبيك معين
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --add --allow-principal User:app_user \
+  --operation Write --operation Describe \
+  --topic my-topic
+
+# 2. إعطاء المستخدم صلاحية القراءة (Consumer - Read & Describe) على التوبيك ومجموعة المستهلكين
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --add --allow-principal User:app_user \
+  --operation Read --operation Describe \
+  --topic my-topic \
+  --group my-group
+
+# 3. عرض جميع أذونات الـ ACLs المسجلة في النظام
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --list
+```
+
 ---
 
 ## 9. قائمة التحقق وحل المشاكل

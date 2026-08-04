@@ -307,6 +307,31 @@ ssl.truststore.password=kafkasslpass
   --entity-type users --entity-name app_user
 ```
 
+### C. Granting Fine-Grained Permissions via ACLs (Without Making Them Super Users):
+Following the Principle of Least Privilege, normal application users are granted explicit topic and consumer group permissions via Kafka ACLs rather than granting them full cluster administrator (Super User) access:
+
+```bash
+# 1. Grant Producer permissions (Write & Describe) on a specific topic
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --add --allow-principal User:app_user \
+  --operation Write --operation Describe \
+  --topic my-topic
+
+# 2. Grant Consumer permissions (Read & Describe) on a topic and Consumer Group
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --add --allow-principal User:app_user \
+  --operation Read --operation Describe \
+  --topic my-topic \
+  --group my-group
+
+# 3. List all configured ACLs across the cluster
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server YOUR_SERVER_IP:9094 \
+  --command-config /opt/kafka/config/kraft/client-ssl.properties \
+  --list
+```
+
 ---
 
 ## 9. Troubleshooting & Verification Checklist
