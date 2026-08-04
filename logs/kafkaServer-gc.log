@@ -118,3 +118,26 @@
 [2026-08-04T17:16:07.162+0300][gc,cpu      ] GC(5) User=0.03s Sys=0.00s Real=0.01s
 [2026-08-04T17:16:07.166+0300][gc,marking  ] GC(5) Concurrent Mark 36.039ms
 [2026-08-04T17:16:07.166+0300][gc,marking  ] GC(5) Concurrent Rebuild Remembered Sets
+[2026-08-04T17:16:07.181+0300][gc,marking  ] GC(5) Concurrent Rebuild Remembered Sets 14.625ms
+[2026-08-04T17:16:07.182+0300][gc,start    ] GC(5) Pause Cleanup
+[2026-08-04T17:16:07.183+0300][gc          ] GC(5) Pause Cleanup 26M->26M(1024M) 0.655ms
+[2026-08-04T17:16:07.185+0300][gc,cpu      ] GC(5) User=0.00s Sys=0.00s Real=0.00s
+[2026-08-04T17:16:07.185+0300][gc,marking  ] GC(5) Concurrent Cleanup for Next Mark
+[2026-08-04T17:16:07.196+0300][gc,marking  ] GC(5) Concurrent Cleanup for Next Mark 11.299ms
+[2026-08-04T17:16:07.197+0300][gc          ] GC(5) Concurrent Mark Cycle 72.429ms
+[2026-08-04T17:16:09.606+0300][gc,start    ] GC(6) Pause Young (Normal) (G1 Evacuation Pause)
+[2026-08-04T17:16:09.606+0300][gc,task     ] GC(6) Using 13 workers of 13 for evacuation
+[2026-08-04T17:16:09.644+0300][gc,mmu      ] GC(6) MMU target violated: 21.0ms (20.0ms/21.0ms)
+[2026-08-04T17:16:09.644+0300][gc,phases   ] GC(6)   Pre Evacuate Collection Set: 3.03ms
+[2026-08-04T17:16:09.644+0300][gc,phases   ] GC(6)   Merge Heap Roots: 1.48ms
+[2026-08-04T17:16:09.644+0300][gc,phases   ] GC(6)   Evacuate Collection Set: 30.69ms
+[2026-08-04T17:16:09.644+0300][gc,phases   ] GC(6)   Post Evacuate Collection Set: 2.82ms
+[2026-08-04T17:16:09.644+0300][gc,phases   ] GC(6)   Other: 0.64ms
+[2026-08-04T17:16:09.645+0300][gc,heap     ] GC(6) Eden regions: 49->0(44)
+[2026-08-04T17:16:09.645+0300][gc,heap     ] GC(6) Survivor regions: 2->7(7)
+[2026-08-04T17:16:09.645+0300][gc,heap     ] GC(6) Old regions: 14->15
+[2026-08-04T17:16:09.645+0300][gc,heap     ] GC(6) Archive regions: 2->2
+[2026-08-04T17:16:09.645+0300][gc,heap     ] GC(6) Humongous regions: 9->9
+[2026-08-04T17:16:09.645+0300][gc,metaspace] GC(6) Metaspace: 46121K(46784K)->46121K(46784K) NonClass: 40721K(41088K)->40721K(41088K) Class: 5400K(5696K)->5400K(5696K)
+[2026-08-04T17:16:09.645+0300][gc          ] GC(6) Pause Young (Normal) (G1 Evacuation Pause) 73M->31M(1024M) 39.014ms
+[2026-08-04T17:16:09.645+0300][gc,cpu      ] GC(6) User=0.06s Sys=0.01s Real=0.04s
