@@ -67,8 +67,15 @@ Place your existing Java KeyStore files in the designated directory (e.g., `/opt
 ---
 
 ### Option (B): Raw Certificate Files (PEM / CRT / KEY)
-If your DevOps/Security team provides raw PEM files (`ca.crt`, `server.crt`, `server.key`), convert them to Java KeyStore (`.jks`) format:
+If your DevOps/Security team provides raw PEM files (`ca.crt`, `server.crt`, `server.key`), you can convert them to Java KeyStore (`.jks`) format either using the provided helper script or manual OpenSSL commands:
 
+#### Quick Automated Conversion using the Included Script:
+```bash
+cd /opt/kafka/config/kraft
+bash convert_pem_to_jks.sh server.crt server.key ca.crt kafkasslpass ./ssl/server
+```
+
+#### Manual Conversion Commands:
 ```bash
 # 1. Bundle Public Certificate & Private Key into a PKCS12 container
 openssl pkcs12 -export \

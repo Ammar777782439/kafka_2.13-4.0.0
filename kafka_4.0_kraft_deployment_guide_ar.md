@@ -67,8 +67,15 @@ cd /opt/kafka
 ---
 
 ### الخيار (ب): إذا كانت لديك ملفات شهادات خام فقط (PEM / CRT / KEY)
-في حال زودك فريق الأمان أو تم إصدار شهادات خام بصيغة (مثل `ca.crt`, `server.crt`, `server.key`)، قم بتحويلها إلى `JKS` باستخدام الأوامر التالية:
+في حال زودك فريق الأمان أو تم إصدار شهادات خام بصيغة (مثل `ca.crt`, `server.crt`, `server.key`)، يمكنك إما استخدام الأوامر المباشرة أو تشغيل السكربت المرفق الجاهز `convert_pem_to_jks.sh`:
 
+#### بالطريقة السريعة عبر السكربت المرفق:
+```bash
+cd /opt/kafka/config/kraft
+bash convert_pem_to_jks.sh server.crt server.key ca.crt kafkasslpass ./ssl/server
+```
+
+#### أو يدويين بالأوامر المباشرة:
 ```bash
 # 1. تحويل المفتاح والشهادة إلى صيغة PKCS12
 openssl pkcs12 -export \
