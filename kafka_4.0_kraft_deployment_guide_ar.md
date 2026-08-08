@@ -4,8 +4,17 @@
 
 ---
 
-> [!NOTE]
-> هذا الدليل مصمم للإصدار **Kafka 4.0.0** الذي يعتمد 100% على نظام **KRaft** بدون الحاجة مطلقاً لـ ZooKeeper.
+> [!IMPORTANT]
+> **⚡ دليل البدء السريع للتسليم والتطبيب على سيرفر جديد (Handover Quickstart):**
+> إذا كنت تقوم بنقل هذه الباقة إلى سيرفر جديد، يتوجب على الشخص المسلم له إتباع الخطوات الـ 5 المباشرة التالية:
+> 1. **ضبط الـ IP ومسار الـ CA:** فتح `/opt/kafka/config/kraft/config.env` وتعديل سطر `SERVER_IP_1=IP_السيرفر_الجديد` ومسارات `CA_CERT` و `CA_KEY`.
+> 2. **توليد الشهادات والـ KeyStores:** تنفيذ `cd /opt/kafka/config/kraft && bash generate-kafka-certs.sh`.
+> 3. **تحديث الـ IP في ملفات التكوين:** 
+>    - في `server-0.properties`: اضبط `advertised.listeners=SASL_SSL://IP_السيرفر_الجديد:9094`.
+>    - في `client-ssl.properties`: اضبط `bootstrap.servers=IP_السيرفر_الجديد:9094`.
+> 4. **تمهيد التخزين (Format Storage):** تنفيذ أمر التمهيد وإضافة حساب الكنترولر:
+>    `KAFKA_CLUSTER_ID=$(./bin/kafka-storage.sh random-uuid) && ./bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c ./config/kraft/server-0.properties --add-scram 'SCRAM-SHA-512=[name=controller,password=controller-password]'`
+> 5. **تشغيل كافكا:** `export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/kafka/config/jaas.conf" && ./bin/kafka-server-start.sh -daemon ./config/kraft/server-0.properties`.
 
 ---
 

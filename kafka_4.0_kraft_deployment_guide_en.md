@@ -4,8 +4,17 @@ This document provides a step-by-step, production-ready operational guide for de
 
 ---
 
-> [!NOTE]
-> This guide is specifically designed for **Kafka 4.0.0**, which operates 100% on **KRaft mode** with zero ZooKeeper dependency.
+> [!IMPORTANT]
+> **⚡ New Server Handover Quickstart Checklist:**
+> If you are migrating/deploying this package on a new server instance, follow these 5 straightforward steps:
+> 1. **Configure Server IP & CA Paths:** Open `/opt/kafka/config/kraft/config.env` and update `SERVER_IP_1=YOUR_NEW_SERVER_IP`, `CA_CERT`, and `CA_KEY` paths.
+> 2. **Generate SSL Certificates & KeyStores:** Execute `cd /opt/kafka/config/kraft && bash generate-kafka-certs.sh`.
+> 3. **Update IP Addresses in Configs:**
+>    - In `server-0.properties`: Set `advertised.listeners=SASL_SSL://YOUR_NEW_SERVER_IP:9094`.
+>    - In `client-ssl.properties`: Set `bootstrap.servers=YOUR_NEW_SERVER_IP:9094`.
+> 4. **Initialize & Format KRaft Storage:** Run storage formatting and register system SCRAM credentials:
+>    `KAFKA_CLUSTER_ID=$(./bin/kafka-storage.sh random-uuid) && ./bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c ./config/kraft/server-0.properties --add-scram 'SCRAM-SHA-512=[name=controller,password=controller-password]'`
+> 5. **Start Kafka Service:** `export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/kafka/config/jaas.conf" && ./bin/kafka-server-start.sh -daemon ./config/kraft/server-0.properties`.
 
 ---
 
