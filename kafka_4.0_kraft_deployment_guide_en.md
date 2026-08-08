@@ -59,51 +59,43 @@ cd /opt/kafka
 
 ## 3. SSL/TLS Certificate Setup & Developer Parameter Breakdown
 
-### Option (A): Existing Production Java KeyStores (JKS / PKCS12)
+### Option (A) - Recommended Production Setup: Comprehensive Generation via `generate-kafka-certs.sh`
+If you only have your internal CA Certificate and Private Key (`ca.crt` and `ca.key`), this production-grade script automatically generates all server certificates, client certificates, JKS KeyStores, and TrustStores in a single command:
+
+#### Steps:
+1. Open `config.env` and update your CA file paths, passwords, and SAN IPs:
+   ```properties
+   CA_CERT=/etc/pki/ca.crt
+   CA_KEY=/etc/pki/ca.key
+   OUTPUT_DIR=/opt/kafka/certs
+   SERVER_IP_1=192.168.168.25
+   ```
+2. Execute the production certificate generator script:
+   ```bash
+   cd /opt/kafka/config/kraft
+   bash generate-kafka-certs.sh
+   ```
+The script performs the following automatically:
+- Generates `server.key` and `server.crt`, signs them with the CA, and embeds SAN IPs.
+- Generates `client.key` and `client.crt` signed by the CA.
+- Constructs `kafka.keystore.p12`, `kafka.keystore.jks`, and `kafka.truststore.jks`.
+- Generates client properties `client.properties` and auditing manifest `manifest.json`.
+- Automatically verifies certificate trust chains and KeyStore validity.
+
+---
+
+### Option (B): Existing Production Java KeyStores (JKS / PKCS12)
 Place your existing Java KeyStore files in the designated directory (e.g., `/opt/kafka/config/kraft/ssl/server`):
 - **`kafka.server.keystore.jks`**: Contains the server private key and public certificate.
 - **`kafka.server.truststore.jks`**: Contains the Root CA certificate.
 
 ---
 
-### Option (B): Raw Certificate Files (PEM / CRT / KEY)
-If your DevOps/Security team provides raw PEM files (`ca.crt`, `server.crt`, `server.key`), you can convert them to Java KeyStore (`.jks`) format either using the provided helper script or manual OpenSSL commands:
-
-#### Quick Automated Conversion using the Included Script:
+### Option (C): Raw Certificate Files (PEM / CRT / KEY)
+If your DevOps/Security team provides pre-issued raw PEM files (`ca.crt`, `server.crt`, `server.key`), convert them using the provided helper script:
 ```bash
 cd /opt/kafka/config/kraft
 bash convert_pem_to_jks.sh server.crt server.key ca.crt kafkasslpass ./ssl/server
-```
-
-#### Manual Conversion Commands:
-```bash
-# 1. Bundle Public Certificate & Private Key into a PKCS12 container
-openssl pkcs12 -export \
-  -in server.crt \
-  -inkey server.key \
-  -out server.p12 \
-  -name localhost \
-  -CAfile ca.crt \
-  -caname CARoot \
-  -passout pass:kafkasslpass
-
-# 2. Convert the PKCS12 bundle into kafka.server.keystore.jks
-keytool -importkeystore \
-  -deststorepass kafkasslpass \
-  -destkeypass kafkasslpass \
-  -destkeystore kafka.server.keystore.jks \
-  -srckeystore server.p12 \
-  -srcstoretype PKCS12 \
-  -srcstorepass kafkasslpass \
-  -alias localhost
-
-# 3. Create kafka.server.truststore.jks and import the Root CA certificate
-keytool -keystore kafka.server.truststore.jks \
-  -alias CARoot \
-  -import \
-  -file ca.crt \
-  -storepass kafkasslpass \
-  -noprompt
 ```
 
 #### 🔍 Developer-Oriented Parameter Breakdown:
@@ -128,8 +120,8 @@ keytool -keystore kafka.server.truststore.jks \
 
 ---
 
-### Option (C): Generating Fresh Self-Signed Certificates (Dev / Testing)
-You can execute the included certificate script:
+### Option (D): Generating Fresh Self-Signed Certificates (Dev / Testing)
+You can execute the included development certificate script:
 ```bash
 cd /opt/kafka/config/kraft
 bash certfcat.sh

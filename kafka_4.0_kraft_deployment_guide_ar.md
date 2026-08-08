@@ -59,51 +59,43 @@ cd /opt/kafka
 
 ## 3. إعداد شهادات التشفير SSL/TLS وشرحها برمجياً
 
-### الخيار (أ): إذا كانت البيئة لديها شهادات جاهزة لـ Java (JKS / PKCS12)
-ضع ملفات الشهادات في المجلد المخصص لها (مثلاً `/opt/kafka/config/kraft/ssl/server`):
+### الخيار (أ) - الموصى به للإنتاج: التوليد التلقائي الشامل من CA عبر `generate-kafka-certs.sh`
+إذا كان يتوفر لديك فقط شهادة الـ CA ومفتاحها (`ca.crt` و `ca.key`)، فهذا هو السكربت الإنتاجي المعتمد لتوليد جميع شهادات السيرفر، العملاء، الـ JKS KeyStores، والـ TrustStores تلقائياً بضغطة زر واحدة:
+
+#### الخطوات:
+1. قم بفتح ملف الإعدادات `config.env` وتعديل مسارات الـ CA والـ IPs المطلوبة:
+   ```properties
+   CA_CERT=/etc/pki/ca.crt
+   CA_KEY=/etc/pki/ca.key
+   OUTPUT_DIR=/opt/kafka/certs
+   SERVER_IP_1=192.168.168.25
+   ```
+2. قم بتشغيل السكربت التوليدي الإنتاجي:
+   ```bash
+   cd /opt/kafka/config/kraft
+   bash generate-kafka-certs.sh
+   ```
+يقوم السكربت بالآتي تلقائياً:
+- توليد `server.key` و `server.crt` وتوقيعها من الـ CA وإضافة الـ SAN IPs.
+- توليد `client.key` و `client.crt` وتوقيعها من الـ CA.
+- إنشاء `kafka.keystore.p12` و `kafka.keystore.jks` و `kafka.truststore.jks`.
+- إنشاء ملف الإعدادات `client.properties` وملف البيان التوثيقي `manifest.json`.
+- التحقق التلقائي من صحة سلسلة التشفير وقابلية الـ KeyStores للفتح في Java.
+
+---
+
+### الخيار (ب): إذا كانت البيئة لديها شهادات جاهزة لـ Java (JKS / PKCS12)
+ضع ملفات الشهادات الجاهزة مباشرة في المجلد المخصص لها (مثلاً `/opt/kafka/config/kraft/ssl/server`):
 - **`kafka.server.keystore.jks`**: يحتوي على مفتاح السيرفر وشهادة السيرفر.
 - **`kafka.server.truststore.jks`**: يحتوي على شهادة المرجع المصدق (CA Truststore).
 
 ---
 
-### الخيار (ب): إذا كانت لديك ملفات شهادات خام فقط (PEM / CRT / KEY)
-في حال زودك فريق الأمان أو تم إصدار شهادات خام بصيغة (مثل `ca.crt`, `server.crt`, `server.key`)، يمكنك إما استخدام الأوامر المباشرة أو تشغيل السكربت المرفق الجاهز `convert_pem_to_jks.sh`:
-
-#### بالطريقة السريعة عبر السكربت المرفق:
+### الخيار (ج): إذا كانت لديك ملفات شهادات خام فقط للسيرفر (PEM / CRT / KEY)
+في حال زودك فريق الأمان أو تم إصدار شهادات خام جاهزة للسيرفر والـ CA، يمكنك تشغيل سكربت التحويل السريع `convert_pem_to_jks.sh`:
 ```bash
 cd /opt/kafka/config/kraft
 bash convert_pem_to_jks.sh server.crt server.key ca.crt kafkasslpass ./ssl/server
-```
-
-#### أو يدويين بالأوامر المباشرة:
-```bash
-# 1. تحويل المفتاح والشهادة إلى صيغة PKCS12
-openssl pkcs12 -export \
-  -in server.crt \
-  -inkey server.key \
-  -out server.p12 \
-  -name localhost \
-  -CAfile ca.crt \
-  -caname CARoot \
-  -passout pass:kafkasslpass
-
-# 2. تحويل ملف PKCS12 إلى kafka.server.keystore.jks
-keytool -importkeystore \
-  -deststorepass kafkasslpass \
-  -destkeypass kafkasslpass \
-  -destkeystore kafka.server.keystore.jks \
-  -srckeystore server.p12 \
-  -srcstoretype PKCS12 \
-  -srcstorepass kafkasslpass \
-  -alias localhost
-
-# 3. إنشاء kafka.server.truststore.jks واستيراد شهادة الـ CA
-keytool -keystore kafka.server.truststore.jks \
-  -alias CARoot \
-  -import \
-  -file ca.crt \
-  -storepass kafkasslpass \
-  -noprompt
 ```
 
 #### 🔍 شرح باراميترات الخيارات من منظور مبرمج (Programmer's Perspective):
@@ -128,7 +120,7 @@ keytool -keystore kafka.server.truststore.jks \
 
 ---
 
-### الخيار (ج): إذا كانت بيئة جديدة وتريد توليد شهادات تجريبية تلقائياً
+### الخيار (د): إذا كانت بيئة جديدة وتريد توليد شهادات تجريبية تلقائياً
 يمكنك استخدام السكربت `certfcat.sh` مع التأكد من ضبط الـ IPs و Valid Days:
 ```bash
 cd /opt/kafka/config/kraft
